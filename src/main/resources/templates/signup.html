@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>sign up</title>
+</head>
+<body>
+<h1>회원 가입</h1>
+<hr>
+
+<form th:action="@{/user}" method="post">
+    email : <input type="text" name="email"> <br>
+    password : <input type="password" name="password"> <br>
+    <input type="radio" name="auth" value="ROLE_ADMIN,ROLE_USER"> ADMIN
+    <input TYPE="radio" name="auth" value="ROLE_USER"> USER <br>
+    <select name="mbti" >
+        <option value="none">=== 선택 ===</option>
+        <option value="ISTJ">ISTJ</option>
+        <option value="ISFJ">ISFJ</option>
+        <option value="INFJ">INFJ</option>
+        <option value="INTJ">INTJ</option>
+        <option value="ISTP">ISTP</option>
+        <option value="ISFP">ISFP</option>
+        <option value="INFP">INFP</option>
+        <option value="INTP">INTP</option>
+        <option value="ESTP">ESTP</option>
+        <option value="ESFP">ESFP</option>
+        <option value="ENFP">ENFP</option>
+        <option value="ENTP">ENTP</option>
+        <option value="ESTJ">ESTJ</option>
+        <option value="ESFJ">ESFJ</option>
+        <option value="ENFJ">ENFJ</option>
+    </select>
+    <button type="submit">가입</button>
+</form>
+<br>
+<a href="/login">로그인 페이지</a>
+</body>
+</html>

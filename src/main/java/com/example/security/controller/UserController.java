@@ -36,7 +36,7 @@ public class UserController {
     public String dashboard(Model model) {
         String mbti = userService.getUsermbti();
         model.addAttribute("mbti", mbti);
-        return "/dashboard";
+        return "/user/dashboard";
     }
 
     @GetMapping(value = "/logout")

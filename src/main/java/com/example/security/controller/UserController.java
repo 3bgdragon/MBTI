@@ -32,6 +32,13 @@ public class UserController {
         return "/main";
     }
 
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
+        String mbti = userService.getUsermbti();
+        model.addAttribute("mbti", mbti);
+        return "/dashboard";
+    }
+
     @GetMapping(value = "/logout")
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());

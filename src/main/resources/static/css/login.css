@@ -1,0 +1,62 @@
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, button, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+    word-break:keep-all;
+    font-family:"NEXON Lv1 Gothic OTF", sans-serif !important;
+}
+
+header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption {
+    display: block;
+    border: 0;
+    *margin: 0;
+    *padding: 0;
+    *font-size: 0
+}
+
+button {
+    padding: 0.8em 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    width:100%;
+    margin-top:1em;
+    background:#20208a;
+    color:#fff;
+    border:0;
+}
+
+input {
+    border:1px solid #ececec;
+    padding:0.7em;
+    border-radius: 5px;
+    font-family:"NEXON Lv1 Gothic OTF", sans-serif !important;
+    width:100%;
+    box-sizing: border-box;
+}
+
+.login_box {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width:300px;
+}
+
+.login_box img {
+    width:100%;
+    max-width:200px;
+    margin:0 auto 1em auto;
+    display: block;
+}
+
+.login_box dl dt {
+    margin:0.5em 0;
+
+}

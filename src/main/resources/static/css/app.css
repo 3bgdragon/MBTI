@@ -1,0 +1,95 @@
+.app-header {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    background:#fff;
+    box-shadow: 0 0 10px rgba(11,11,11,.1);
+    text-align:center;
+    z-index: 99;
+}
+
+.app-header h1 {
+    float:left;
+    max-width: 200px;
+    display: inline-block;
+    padding: 13px 0 13px 1em;
+}
+
+.app-header ul {
+    position:Relative;
+    display:inline-block;
+}
+
+.app-header ul li {
+    display:inline-block;
+}
+
+.app-header ul li a {
+    display:Block;
+    padding:2em;
+    color:#212121;
+    border-radius: 0 !important;
+}
+
+.app-header ul li a:hover {
+    color:#20208a !important;
+    border-bottom:2px solid #20208a;
+}
+
+.app-header span {
+    float:right;
+    width: 54px;
+    padding: 1.6em 1em;
+}
+
+.app-header span a {
+    display:block;
+}
+
+.app-header:after {
+    content:'';
+    display:block;
+    clear:both;
+}
+
+.app-content {
+    position:Relative;
+    padding:0 40px 0 40px;
+    margin-top:110px;
+}
+
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items : center;
+    z-index: 999;
+}
+.md_overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.md_content {
+    width: 1000px;
+    position: relative;
+    padding: 20px;
+    background-color: white;
+    text-align: center;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+._page {
+    display: inline-block;
+}

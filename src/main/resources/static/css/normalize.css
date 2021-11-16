@@ -1,0 +1,448 @@
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, button, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+    word-break:keep-all;
+    font-family:"NEXON Lv1 Gothic OTF", sans-serif !important;
+}
+
+header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption {
+    display: block;
+    border: 0;
+    *margin: 0;
+    *padding: 0;
+    *font-size: 0
+}
+
+html, body {
+    -webkit-text-size-adjust: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    font-size: 14px;
+    color:#212121;
+    background:#f6f6f6;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:1px solid #dedeff;
+    width:100%;
+    text-align: center;
+}
+
+table th {
+    background: #f2f8ff !important;
+    border-top: 1px solid #dedeff;
+    border-bottom: 1px solid #dedeff;
+    color: #20208a;
+    padding:1em;
+}
+
+table td {
+    padding:0.5em;
+    border-bottom: 1px solid #dedeff;
+    line-height: 1.3;
+    background:#fff;
+}
+
+fieldset, img, iframe {
+    border: 0
+}
+
+img {
+    height: auto;
+    vertical-align: top;
+    width:100%;
+}
+
+ul, ol {
+    list-style: none;
+    margin-bottom:0 !important;
+}
+
+caption, legend {
+    display: none
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color:#212121;
+}
+
+
+a[href^="tel"] {
+    font-style: normal
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+    line-height:100%;
+}
+
+::selection {
+    background:#e0e0ff;
+    color:#20208a;
+}
+
+body {
+    -webkit-overflow-scrolling: touch
+}
+
+button {
+    padding: 0.8em 1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type="text"] {
+    border:1px solid #ececec;
+    padding:0.7em;
+    border-radius: 5px;
+    font-family:"NEXON Lv1 Gothic OTF", sans-serif !important;
+    box-sizing: border-box;
+}
+
+input {
+    padding:0.8em;
+    border:1px solid #ececec;
+    margin:10px 0;
+    border-radius:8px;
+    font-family: "NEXON Lv1 Gothic OTF", sans-serif !important;
+}
+
+input[type="checkbox"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}
+
+input[type="checkbox"]+ label {
+    position:relative;
+    display: inline-block;
+    cursor: pointer;
+    padding-left:0.5em;
+    color:#777;
+    font-weight:100;
+}
+
+input[type="checkbox"]+ label:before {
+    position:absolute;
+    content:'';
+    top:-11px;
+    left:0;
+    width: 13px;
+    height: 13px;
+    border: 1px solid #ececec;
+}
+
+input[type="checkbox"]:checked + label:before {
+    position:absolute;
+    content:url("../images/input-check.png");
+    top:-11px;
+    left:0;
+    width: 13px;
+    height: 13px;
+    background-color: #20208a;
+    border:1px solid #20208a;
+}
+
+input:read-only {
+    background:#f6f6f6;
+}
+
+select {
+    font-family: "NEXON Lv1 Gothic OTF", sans-serif !important;
+    border:1px solid #ececec;
+    padding:5px;
+    cursor: pointer;
+}
+
+table td select {
+    width:100%;
+}
+
+table td img {
+    width:45px;
+    height: 59px;
+}
+
+.barcode_input {
+    width: 30%;
+    padding: 1.5em !important;
+    margin: 0 0 1em 0;
+    text-align: center;
+}
+
+.none_data_table {
+    height: 78.8vh;
+}
+
+.none_data_table01 {
+    height: 71.8vh;
+}
+
+.admin-content h1 {
+    font-size:160%;
+    padding-bottom:40px;
+}
+
+.container h1 img {
+    max-width: 35px;
+    padding-right: 10px;
+    vertical-align: bottom;
+}
+
+.content_area {
+    position: relative;
+    width: 100%;
+    min-height: 85vh;
+}
+
+.search_box {
+    position:relative;
+    width:100%;
+    text-align:right;
+}
+
+.search_box input[type="text"] {
+    border:1px solid #ececec;
+    width:60%;
+    vertical-align:top;
+    padding:0.7em;
+    margin:0;
+}
+
+.search_box button {
+    padding: 0.8em 1em;
+    color: #fff;
+    background: #fd0348;
+    border:1px solid #fd0348;
+    cursor: pointer;
+}
+
+.float {
+    padding:20px 0;
+}
+
+.float_left {
+    float:left;
+}
+
+.float_right {
+    float:right;
+}
+
+.float:after {
+    content:'';
+    clear:both;
+    display:block;
+}
+
+.title_float  {
+    padding:0 0 20px 0;
+}
+
+.title_float .float_right {
+    width:50%;
+    margin-top:-8px;
+}
+
+.title_float h1 {
+    padding-bottom:0;
+}
+
+.content_top_btn {
+    position: relative;
+    padding: 0.7em 1em;
+    color: #fff;
+    background: #21215d;
+    border:0;
+}
+
+.content_top_btn01 {
+    position: relative;
+    padding: 0.87em 1em;
+    color: #fff;
+    background: #21215d !important;
+    border:0 !important;
+}
+
+.complete_btn {
+    position: relative;
+    padding: 0.7em 1em;
+    color: #fff;
+    background: #de284a;
+    border:0;
+}
+
+.modify_btn {
+    padding: 3px 1em;
+    border:1px solid #515151;
+    background:#515151;
+    color:#fff
+}
+
+.choice_delete {
+    border:1px solid #212121;
+    background:#212121;
+    color:#fff
+}
+
+.excel_down {
+     background:#0f783f;
+     border:1px solid #0f783f;
+     color:#fff;
+ }
+
+.excel_up {
+    background:#23b767;
+    border:1px solid #23b767;
+    color:#fff;
+}
+
+
+.page-num {
+    position:relative;
+    width:100%;
+    text-align:center;
+    padding:2em 0 0 0;
+}
+._page {
+    position:relative;
+    display:inline-block;
+    vertical-align: middle;
+}
+
+._page a {
+    display:block;
+    padding:0 3px;
+    color:#ddd;
+    font-size:14px;
+}
+
+._page a:hover {
+    color:#20208a;
+}
+
+._page:nth-of-type(1) a, ._page:last-of-type a {
+    font-size:10px;
+}
+
+.page-num01 {
+    color:#20208a !important;
+    font-weight:600;
+}
+
+.member_table th, .member_table td{
+    padding:0.8em;
+}
+
+.user_regist_table {
+    margin-top:2em;
+}
+
+.user_regist_table td {
+    text-align:left;
+}
+
+.user_regist_table td input, .user_regist_table td select {
+    margin:0;
+    width:70%;
+}
+
+.none_input_type {
+    text-align: center;
+    background: #fff !important;
+    border:0;
+    outline: none;
+}
+
+.cke_contents {
+    height:650px !important;
+    resize: none;
+}
+
+.cke_bottom {
+    display:none !important;
+}
+
+.swal-button--confirm {
+    background:#20208a;
+}
+
+.table_left {
+    text-align:left;
+}
+
+textarea {
+    width:100%;
+    border:1px solid #ececec;
+    padding:1em;
+    resize: none;
+}
+
+.api_bold b{
+    font-weight:400;
+}
+
+/********************************popup**********************************/
+
+.popup_background {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup_content {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    margin: 0 auto;
+    padding: 2em;
+    width: 70%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(11,11,11,.1);
+}
+
+.popup_close_btn {
+    position: absolute;
+    top: 2em;
+    right: 2em;
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: 0;
+    padding: 0;
+}
+
+.popup_content table {
+    margin-top:1em;
+}

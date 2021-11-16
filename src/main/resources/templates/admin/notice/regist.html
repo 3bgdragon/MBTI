@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layout/common}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>대시보드</title>
+
+    <!-- Page css -->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    </th:block>
+
+    <!-- Page js -->
+    <th:block layout:fragment="script">
+        <!-- <script th:inline="javascript">
+             var categories = [[${categoryList}]];
+         </script>-->
+        <!--<script th:src="@{/js/admin/dashboard/dashboard.js}"></script>-->
+    </th:block>
+
 </head>
+
 <body>
-공지사항 등록/수정 페이지
+<div layout:fragment="content">
+    <div class="container">
+        공지사항 등록/수정 페이지
+    </div>
+</div>
 </body>
 </html>

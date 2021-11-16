@@ -1,11 +1,13 @@
 package com.example.security.controller;
 
+import com.example.security.domain.user.UserInfo;
 import com.example.security.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -33,6 +35,15 @@ public class AdminController {
         String mbti = userService.getUsermbti();
         model.addAttribute("mbti", mbti);
         return "/admin/member/regist";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/member/getMemberEmail", method = RequestMethod.GET)
+    public Boolean memberEmail(Model model,@RequestBody String email) {
+        Optional<UserInfo> userInfo = userService.findUser(email);
+
+        if(userInfo.isEmpty()) return true;
+        else return false;
     }
 
 

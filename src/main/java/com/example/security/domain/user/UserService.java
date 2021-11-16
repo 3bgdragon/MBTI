@@ -54,4 +54,8 @@ public class UserService implements UserDetailsService {
         Optional<UserInfo> userInfo = userRepository.findByEmail(authentication.getName());
         return String.valueOf(userInfo.get().getMbti());
     }
+
+    public Optional<UserInfo> findUser(String email) {
+         return userRepository.findByEmail(email);
+    }
 }

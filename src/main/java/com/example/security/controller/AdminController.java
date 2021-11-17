@@ -3,6 +3,7 @@ package com.example.security.controller;
 import com.example.security.domain.user.UserInfo;
 import com.example.security.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,13 @@ import java.util.Optional;
 public class AdminController {
 
     private final UserService userService;
+
+
+    @GetMapping("/denied")
+    public String deniedUser (Model model) {
+        return "/denied";
+    }
+
 
     @GetMapping("/member/list")
     public String memberList(Model model) {

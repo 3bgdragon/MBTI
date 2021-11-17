@@ -46,6 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
                 .and()
+                .exceptionHandling().accessDeniedPage("/admin/denied")   //권한이 부족한 페이지 접근시 해당 url 호출
+                .and()
                 .csrf().disable().cors();    //csrf 관련 설정 비활성화
         ;
     }

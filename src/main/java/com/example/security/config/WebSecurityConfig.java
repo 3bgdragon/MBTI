@@ -30,6 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login", "/signup", "/user").permitAll()
                 .antMatchers("/").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/admin/member/list").hasRole("ADMIN")
+                .antMatchers("/admin/member/modify").hasRole("ADMIN")
+                .antMatchers("/admin/member/regist").hasRole("ADMIN")
+                .antMatchers("/admin/notice/list").hasRole("ADMIN")
+                .antMatchers("/admin/notice/regist").hasRole("ADMIN")
                 .anyRequest().authenticated() //나머지요청들은 권하의 종류에 상관없이 권한이 있어야 접근
 
                 .and()

@@ -61,10 +61,11 @@ function validate_email() {
         $.ajax({
             url: "/admin/member/getMemberEmail",
             type: "POST",
-            data: JSON.stringify(userEmail),
+            data: userEmail,
             dataType: "json",
             contentType: "application/json",
         }).done(function (res) {
+            console.log("res",res);
             if(res) {
                 $("#valid_email").val("Y");
                 swal("회원관리", "사용가능한 이메일 입니다.", "success");
@@ -77,6 +78,7 @@ function validate_email() {
 
 function validate() {
     var result = true;
+    alert($("#mbti").val());
     $("[data-type*='required']").each(function () {
         if (!$(this).val()) {
             if ($(this).attr("type") == "password" && $("#modify").val() == "Y") return;
@@ -103,8 +105,9 @@ function validate() {
                 return result = false;
             } else if ($("#mbti").val() == "none") {
                 swal("회원관리", "MBTI을 확인해주세요.", "warning").then((res) => {
-                    $("#email").focus();
+                    $("#mbti").focus();
                 });
+                return result = false;
             }
         }}
     );
@@ -122,7 +125,9 @@ function save() {
             });
             return false;
         } else if (valid_email == "Y") {
-            $("#form").submit();
+            swal("회원관리", "회원가입이 완료되었습니다.", "success").then(() => {
+                $("#form").submit();
+            });
         }
     }
 }

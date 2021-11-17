@@ -51,6 +51,7 @@ public class UserService implements UserDetailsService {
     public String getUsermbti() {
          //현재 세션에 로그인한 사용자 정보를 가져온다
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String test = authentication.getName();
         Optional<UserInfo> userInfo = userRepository.findByEmail(authentication.getName());
         return String.valueOf(userInfo.get().getMbti());
     }

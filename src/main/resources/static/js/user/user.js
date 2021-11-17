@@ -58,10 +58,9 @@ function validate_email() {
         });
         return false;
     } else {
-        alert("1");
         $.ajax({
             url: "/admin/member/getMemberEmail",
-            type: "GET",
+            type: "POST",
             data: JSON.stringify(userEmail),
             dataType: "json",
             contentType: "application/json",

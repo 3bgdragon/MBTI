@@ -38,7 +38,7 @@ public class AdminController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/member/getMemberEmail", method = RequestMethod.GET)
+    @RequestMapping(value = "/member/getMemberEmail", method = RequestMethod.POST)
     public Boolean memberEmail(Model model,@RequestBody String email) {
         Optional<UserInfo> userInfo = userService.findUser(email);
 

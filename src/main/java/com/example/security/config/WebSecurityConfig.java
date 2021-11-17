@@ -27,20 +27,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                   .antMatchers("/login","/signup","/user").permitAll()
-                   .antMatchers("/").hasRole("USER")
-                   .antMatchers("/admin").hasRole("ADMIN")
-                   .anyRequest().authenticated() //나머지요청들은 권하의 종류에 상관없이 권한이 있어야 접근
+                .antMatchers("/login", "/signup", "/user").permitAll()
+                .antMatchers("/").hasRole("USER")
+                .antMatchers("/admin").hasRole("ADMIN")
+                .anyRequest().authenticated() //나머지요청들은 권하의 종류에 상관없이 권한이 있어야 접근
 
                 .and()
-                   .formLogin()
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/")
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
                 .and()
-                   .logout()
-                    .logoutSuccessUrl("/login")
-                    .invalidateHttpSession(true)
-
+                .logout()
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true)
+                .and()
+                .csrf().disable().cors();    //csrf 관련 설정 비활성화
         ;
     }
 

@@ -1,6 +1,10 @@
 package com.example.security.domain.user;
 
+import com.example.security.core.BaseJpaQueryDSLRepository;
+import com.example.security.domain.BaseService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,11 +14,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
+
 @Service
-public class UserService implements UserDetailsService {
+public class UserService extends BaseService<UserInfo, Long> implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        super(userRepository);
+        this.userRepository = userRepository;
+    }
 
     /**
      * Spring Security 필수 메소드 구현
@@ -59,4 +68,10 @@ public class UserService implements UserDetailsService {
     public Optional<UserInfo> findUser(String email) {
          return userRepository.findByEmail(email);
     }
+
+    /*public Page<UserInfo> getAllUser(int i, String filter) {
+
+
+    }*/
+
 }

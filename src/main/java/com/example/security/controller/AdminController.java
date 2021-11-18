@@ -3,6 +3,7 @@ package com.example.security.controller;
 import com.example.security.domain.user.UserInfo;
 import com.example.security.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +26,9 @@ public class AdminController {
 
 
     @GetMapping("/member/list")
-    public String memberList(Model model) {
+    public String memberList(String filter,Model model) {
         String mbti = userService.getUsermbti();
+        /*Page<UserInfo> userInfoPage = userService.getAllUser(1,filter);*/
         model.addAttribute("mbti", mbti);
         return "/admin/member/list";
     }

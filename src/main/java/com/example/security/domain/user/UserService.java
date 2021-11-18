@@ -89,8 +89,14 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
     }
 
     public Page<UserInfo> getAllUser(int page, String filter) {
-        Pageable pageable = PageRequest.of(page - 1,10);
+        Pageable pageable = PageRequest.of(page - 1, 10);
         BooleanBuilder builder = new BooleanBuilder();
+
+        if(isNotEmpty(filter)){
+            if(filter.equals("none") ) {
+                filter = null;
+            }
+        }
 
         if(isNotEmpty(filter)) {
             builder.and(qUserInfo.email.contains(filter));

@@ -14,40 +14,6 @@ function check(element) {
     element.checked = true;
 }
 
-
-function searchAdress() {
-    new daum.Postcode({
-        oncomplete: function (data) {
-            var addr = '';
-            var extraAddr = '';
-
-            if (data.userSelectedType === 'R') {
-                addr = data.roadAddress;
-            } else {
-                addr = data.jibunAddress;
-            }
-
-            if (data.userSelectedType === 'R') {
-                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-                    extraAddr += data.bname;
-                }
-
-                if (data.buildingName !== '' && data.apartment === 'Y') {
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-
-                if (extraAddr !== '') {
-                    extraAddr = ' (' + extraAddr + ')';
-                }
-            }
-
-            $("#zipCd").val(data.zonecode);
-            $("#adres").val(addr + extraAddr);
-            $("#adresDet").focus();
-        }
-    }).open();
-}
-
 function validate_email() {
     var userEmail = $("#email").val();
     console.log("userEmail",userEmail);
@@ -138,6 +104,25 @@ function modify() {
             });
         }
 }
+
+function userListPaging(page) {
+    filter = $( '#filter' ).val();
+    if($( '#filter' ).val() == "") {
+        filter = "none";
+    }
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        data: filter,
+        url: "/admin/member/list/paging/?page=" + page,
+        success: function(result) {
+            $("#userListFrag").replaceWith(result);
+        },
+        error: function (request, status, error){
+        }
+    });
+}
+
 
 function deleteUser() {
     var checkedList = $('td input:checkbox:checked');

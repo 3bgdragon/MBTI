@@ -25,16 +25,30 @@ public class AdminController {
     }
 
 
-    @GetMapping("/member/list")
+    @RequestMapping(value = "/member/list", method = RequestMethod.GET)
     public String memberList(String filter,Model model,@RequestParam(defaultValue = "1") int page) {
         String mbti = userService.getUsermbti();
+        model.addAttribute("mbti", mbti);
+
         Page<UserInfo> users = userService.getAllUser(1,filter);
         model.addAttribute("users", users);
         model.addAttribute("page", page);
         model.addAttribute("maxPage", 10);
         model.addAttribute("filter", filter);
-        model.addAttribute("mbti", mbti);
         return "/admin/member/list";
+    }
+
+    @RequestMapping(value = "/member/list/paging", method = RequestMethod.POST)
+    public String memberListPaging(@RequestParam int page,@RequestBody String filter,Model model) {
+        String mbti = userService.getUsermbti();
+        model.addAttribute("mbti", mbti);
+
+        Page<UserInfo> users = userService.getAllUser(page,filter);
+        model.addAttribute("users", users);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage", 10);
+        model.addAttribute("filter", filter);
+        return "admin/member/list :: userListFrag";
     }
 
     @GetMapping("/member/regist/{code}")
@@ -44,7 +58,7 @@ public class AdminController {
 
         Optional<UserInfo> user = userService.findUser(code);
         model.addAttribute("user", user.get());
-        return "/admin/member/modify";
+        return "admin/member/modify";
     }
 
     @GetMapping(value = "/member/regist")

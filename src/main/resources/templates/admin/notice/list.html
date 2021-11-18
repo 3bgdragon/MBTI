@@ -4,19 +4,14 @@
       layout:decorator="~{layout/common}">
 
 <head>
-    <title>대시보드</title>
+    <title>공지사항</title>
 
     <!-- Page css -->
     <th:block layout:fragment="css">
-        <link rel="stylesheet" th:href="@{/css/dashboard.css}">
     </th:block>
 
     <!-- Page js -->
     <th:block layout:fragment="script">
-        <!-- <script th:inline="javascript">
-             var categories = [[${categoryList}]];
-         </script>-->
-        <!--<script th:src="@{/js/admin/dashboard/dashboard.js}"></script>-->
     </th:block>
 
 </head>
@@ -24,7 +19,46 @@
 <body>
 <div layout:fragment="content">
     <div class="container">
-        공지사항 리스트 페이지
+        <div class="float title_float">
+            <div class="float_left">
+                <h1>공지사항 목록</h1>
+            </div>
+            <div class="float_right">
+                <div class="search_box">
+                    <form th:action="@{/notice/list}" method="get">
+                        <input type="text" name="filter" th:id="filter" placeholder="검색어를 입력하세요."
+                               onkeypress="javascript:if (event.keyCode == 13) {this.submit()}" autocomplete="off">
+                        <button type="submit">검색</button>
+
+                        <a th:href="@{/notice/regist}" class="content_top_btn">공지사항 등록</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--<div id="notice-list" th:fragment="notice-list">
+            <table>
+                <colgroup>
+                    <col width="3%">
+                    <col width="5%">
+                    <col width="62%">
+                    <col width="10%">
+                    <col width="10%">
+                </colgroup>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll"/>
+                        <label for="selectAll"></label>
+                    </th>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                </tr>
+                <tr th:each="notice : ${notices}">
+
+                </tr>
+            </table>
+        </div>-->
     </div>
 </div>
 </body>

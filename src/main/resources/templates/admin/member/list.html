@@ -13,10 +13,7 @@
 
     <!-- Page js -->
     <th:block layout:fragment="script">
-        <!-- <script th:inline="javascript">
-             var categories = [[${categoryList}]];
-         </script>-->
-        <!--<script th:src="@{/js/admin/dashboard/dashboard.js}"></script>-->
+        <script th:src="@{/js/admin/notice/noticeList.js}"></script>
     </th:block>
 
 </head>
@@ -24,8 +21,96 @@
 <body>
 <div layout:fragment="content">
     <div class="container">
-        회원 목록 페이지
+        <div class="float title_float">
+            <div class="float_left">
+                <h1><img th:src="@{/images/member.svg}">회원목록</h1>
+            </div>
+            <div class="float_right">
+                <div class="search_box">
+                    <form th:action="@{/admin/member/list}" method="get">
+                        <input id="filter" type="text" name="filter" th:value="${filter}" placeholder="회원이름을 입력해주세요."
+                               onkeypress="javascript:if (event.keyCode == 13) {this.submit()}" />
+                        <button type="submit">검색</button>
+                        <a th:href="@{/admin/member/regist}"
+                           onclick="localStorage.setItem('click','user_regist');" class="content_top_btn">회원등록</a>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+    <div id="userListFrag" th:fragment="userListFrag">
+        <table class="member_table">
+            <colgroup>
+                <col width="3%">
+                <col width="5%">
+                <col width="17%">
+                <col width="17%">
+                <col width="17%">
+                <col width="17%">
+                <col width="17%">
+                <col width="7%">
+            </colgroup>
+            <tr>
+                <th>
+
+                </th>
+                <th>번호</th>
+                <th>이메일</th>
+                <th>이름</th>
+                <th>회원가입일</th>
+                <th>최종로그인</th>
+                <th>권한</th>
+                <th>이용현황</th>
+            </tr>
+            <tr th:if="${users.getContent().size() == 0}">
+                <td colspan="8" class="none_data_table01">조회된 데이터가 없습니다.</td>
+            </tr>
+
+            <tr th:each="user : ${users}">
+                <td>
+                    <input type="checkbox" th:id="'chk_' + ${user.userId}" name="chk" onclick="check(this)"/>
+                    <label th:for="'chk_' + ${user.userId}"></label>
+                </td>
+                <td th:text="${users.getTotalElements() - (users.number * users.size + userStat.index)}"></td>
+                <td th:text="${user.userId}">
+                    <input type="hidden" th:value="${user.userNm}">
+                </td>
+                <td th:text="${user.userNm}"></td>
+                <td th:text="${#temporals.format(user.registDt, 'yyyy.MM.dd')}"></td>
+                <td th:text="${#temporals.format(user.lastLogin, 'yyyy.MM.dd HH:mm:ss')}"></td>
+                <td th:if="${user.userRole=='ROLE_ADMIN'}">관리자</td>
+                <td th:if="${user.userRole=='ROLE_USER'}">일반 사용자</td>
+                <td>
+                    <a th:href="@{'/admin/user/modify/' + ${user.userId}}" class="modify_btn">현황</a>
+                </td>
+            </tr>
+        </table>
+
+        <div th:if="${users.getTotalPages() > 1}">
+            <div class="page-num"
+                 th:with="start=${(users.number/maxPage) * maxPage + 1},
+                  end=(${(users.totalPages == 0) ? 1 : (start + (maxPage - 1) < users.totalPages ? start + (maxPage - 1) : users.totalPages)})">
+                <ul>
+                    <li class="_page">
+                        <a href="javascript:void(0);" onclick="userListPaging(1)" th:text="'<<'"></a>
+                    </li>
+
+                    <li th:each="page: ${#numbers.sequence(start, end)}" class="_page">
+                        <a href="javascript:void(0);" th:onclick="userListPaging([[${page}]])"
+                           th:text="${page}" th:classappend="${page == users.number + 1} ? 'page-num01'"></a>
+                    </li>
+
+                    <li class="_page">
+                        <a href="javascript:void(0);" th:onclick="userListPaging([[${users.totalPages}]])"
+                           th:text="'>>'"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

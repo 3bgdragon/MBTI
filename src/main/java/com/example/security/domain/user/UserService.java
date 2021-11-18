@@ -2,9 +2,14 @@ package com.example.security.domain.user;
 
 import com.example.security.core.BaseJpaQueryDSLRepository;
 import com.example.security.domain.BaseService;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.QueryResults;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -69,9 +74,23 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
          return userRepository.findByEmail(email);
     }
 
-    /*public Page<UserInfo> getAllUser(int i, String filter) {
+    public Page<UserInfo> getAllUser(int page, String filter) {
+        Pageable pageable = PageRequest.of(page - 1,10);
+        BooleanBuilder builder = new BooleanBuilder();
 
+        if(isNotEmpty(filter)) {
+            builder.and(qUserInfo.email.contains(filter));
+            builder.or(qUserInfo.mbti.contains(filter));
+        }
 
-    }*/
+        QueryResults results = select().from(qUserInfo)
+                .where(builder)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(qUserInfo.code.desc())
+                .fetchResults();
+
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
+    }
 
 }

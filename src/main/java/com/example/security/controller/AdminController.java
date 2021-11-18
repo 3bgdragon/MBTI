@@ -26,9 +26,13 @@ public class AdminController {
 
 
     @GetMapping("/member/list")
-    public String memberList(String filter,Model model) {
+    public String memberList(String filter,Model model,@RequestParam(defaultValue = "1") int page) {
         String mbti = userService.getUsermbti();
-        /*Page<UserInfo> userInfoPage = userService.getAllUser(1,filter);*/
+        Page<UserInfo> userInfoList = userService.getAllUser(1,filter);
+        model.addAttribute("userInfoList", userInfoList);
+        model.addAttribute("page", page);
+        model.addAttribute("maxPage", 10);
+        model.addAttribute("filter", filter);
         model.addAttribute("mbti", mbti);
         return "/admin/member/list";
     }

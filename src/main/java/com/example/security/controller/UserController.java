@@ -19,9 +19,15 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/user")
-    public String signup(UserInfoDto infoDto) {
-        userService.save(infoDto);
+    @PostMapping("/registUser")
+    public String registUser(UserInfoDto infoDto) {
+        userService.registUser(infoDto);
+        return "redirect:/login";
+    }
+
+    @PostMapping("/modifyUser")
+    public String modifyUser(UserInfoDto infoDto) {
+        userService.modifyUser(infoDto);
         return "redirect:/login";
     }
 

@@ -28,8 +28,8 @@ public class AdminController {
     @GetMapping("/member/list")
     public String memberList(String filter,Model model,@RequestParam(defaultValue = "1") int page) {
         String mbti = userService.getUsermbti();
-        Page<UserInfo> userInfoList = userService.getAllUser(1,filter);
-        model.addAttribute("userInfoList", userInfoList);
+        Page<UserInfo> users = userService.getAllUser(1,filter);
+        model.addAttribute("users", users);
         model.addAttribute("page", page);
         model.addAttribute("maxPage", 10);
         model.addAttribute("filter", filter);
@@ -37,14 +37,17 @@ public class AdminController {
         return "/admin/member/list";
     }
 
-    @GetMapping("/member/modify")
-    public String memberModify(Model model) {
+    @GetMapping("/member/regist/{code}")
+    public String memberModify(@PathVariable("code") String code,Model model) {
         String mbti = userService.getUsermbti();
         model.addAttribute("mbti", mbti);
+
+        Optional<UserInfo> user = userService.findUser(code);
+        model.addAttribute("user", user.get());
         return "/admin/member/modify";
     }
 
-    @GetMapping("/member/regist")
+    @GetMapping(value = "/member/regist")
     public String memberRegist(Model model) {
         String mbti = userService.getUsermbti();
         model.addAttribute("mbti", mbti);
@@ -54,24 +57,10 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/member/getMemberEmail", method = RequestMethod.POST)
     public Boolean memberEmail(Model model,@RequestBody String email) {
-        Optional<UserInfo> userInfo = userService.findUser(email);
+        Optional<UserInfo> userInfo = userService.findUserByEmail(email);
 
         if(userInfo.isEmpty()) return true;
         else return false;
     }
 
-
-    @GetMapping("/notice/list")
-    public String noticeList(Model model) {
-        String mbti = userService.getUsermbti();
-        model.addAttribute("mbti", mbti);
-        return "/admin/notice/list";
-    }
-
-    @GetMapping("/notice/regist")
-    public String noticeRegist(Model model) {
-        String mbti = userService.getUsermbti();
-        model.addAttribute("mbti", mbti);
-        return "/admin/notice/regist";
-    }
 }

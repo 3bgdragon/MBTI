@@ -22,7 +22,7 @@
 <div layout:fragment="content">
     <div class="container">
         <h1 style="padding-bottom:0"><img th:src="@{/image/member.svg}">회원등록</h1>
-        <form id="form" th:action="@{/user}" method="post">
+        <form id="form" th:action="@{/registUser}" method="post">
             <table class="user_regist_table">
                 <colgroup>
                     <col width="10%">
@@ -61,7 +61,7 @@
                     <th>이메일</th>
                     <td>
                         <input type="email" name="email" id="email" data-type="required" placeholder="예) abc@abc.com"/>
-                        <button type="button" id="valid_email" onclick="validate_email()" value="N" class="content_top_btn01">
+                        <button  type="button" id="valid_email" onclick="validate_email()" value="N" class="content_top_btn01">
                             중복확인
                         </button>
                     </td>
@@ -80,7 +80,7 @@
                     <a th:href="@{/admin/member/list}" class="content_top_btn" style="display:block;">목록</a>
                 </div>
                 <div class="float_right">
-                    <button type="button" onclick="save()" class="complete_btn" style="padding:0.9em 1em">등록</button>
+                    <button onclick="save()" class="complete_btn" style="padding:0.9em 1em">등록</button>
                 </div>
             </div>
         </form>

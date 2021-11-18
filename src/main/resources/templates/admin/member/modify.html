@@ -13,10 +13,7 @@
 
     <!-- Page js -->
     <th:block layout:fragment="script">
-        <!-- <script th:inline="javascript">
-             var categories = [[${categoryList}]];
-         </script>-->
-        <!--<script th:src="@{/js/admin/dashboard/dashboard.js}"></script>-->
+        <script th:src="@{/js/user/user.js}"></script>
     </th:block>
 
 </head>
@@ -24,7 +21,67 @@
 <body>
 <div layout:fragment="content">
     <div class="container">
-        회원 수정페이지
+        <h1 style="padding-bottom:0"><img th:src="@{/image/member.svg}">회원수정</h1>
+        <form id="form" th:action="@{/modifyUser}" method="post">
+            <table class="user_regist_table">
+                <colgroup>
+                    <col width="10%">
+                    <col width="23.3%">
+                    <col width="10%">
+                    <col width="23.3%">
+                </colgroup>
+                <tr>
+                    <th>권한</th>
+                    <td>
+                        <select name="auth" th:field="${user.auth}">
+                            <option value="ROLE_ADMIN,ROLE_USER">관리자</option>
+                            <option value="ROLE_USER" selected>일반 사용자</option>
+                        </select>
+                        <select name="mbti" id="mbti" th:field="${user.mbti}">
+                            <option value="none">=== 선택 ===</option>
+                            <option value="ISTJ">ISTJ</option>
+                            <option value="ISFJ">ISFJ</option>
+                            <option value="INFJ">INFJ</option>
+                            <option value="INTJ">INTJ</option>
+                            <option value="ISTP">ISTP</option>
+                            <option value="ISFP">ISFP</option>
+                            <option value="INFP">INFP</option>
+                            <option value="INTP">INTP</option>
+                            <option value="ESTP">ESTP</option>
+                            <option value="ESFP">ESFP</option>
+                            <option value="ENFP">ENFP</option>
+                            <option value="ENTP">ENTP</option>
+                            <option value="ESTJ">ESTJ</option>
+                            <option value="ESFJ">ESFJ</option>
+                            <option value="ENFJ">ENFJ</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>이메일</th>
+                    <td>
+                        <input type="text" name="code" th:value="${user.code}">
+                        <input type="email" name="email" id="email" th:value="${user.email}" data-type="required" placeholder="예) abc@abc.com"/>
+                    </td>
+                    <th>비밀번호</th>
+                    <td>
+                        <input type="password" title="비밀번호" id="password" name="password" data-type="required" placeholder="영문, 숫자 혼합하여 6~20자리 이내" />
+                    </td>
+                    <th>비밀번호 확인</th>
+                    <td>
+                        <input type="password" id="passwordCheck"/>
+                    </td>
+                </tr>
+            </table>
+            <div class="float">
+                <div class="float_left">
+                    <a th:href="@{/admin/member/list}" class="content_top_btn" style="display:block;">목록</a>
+                </div>
+                <div class="float_right">
+                    <button type="button" onclick="modify()" class="complete_btn" style="padding:0.9em 1em">등록</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 </body>

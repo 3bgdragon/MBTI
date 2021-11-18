@@ -51,15 +51,25 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
      * @param infoDto 회원정보가 들어있는 DTO
      * @return 저장되는 회원의 PK
      */
-     public Long save(UserInfoDto infoDto) {
+    public Long registUser(UserInfoDto infoDto) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        infoDto.setPassword(encoder.encode(infoDto.getPassword()));
+        return userRepository.save(UserInfo.builder()
+                .email(infoDto.getEmail())
+                .auth(infoDto.getAuth())
+                .mbti(infoDto.getMbti())
+                .password(infoDto.getPassword()).build()).getCode();
+    }
+
+    public Long modifyUser(UserInfoDto infoDto) {
          BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
          infoDto.setPassword(encoder.encode(infoDto.getPassword()));
-
-         return userRepository.save(UserInfo.builder()
-                 .email(infoDto.getEmail())
-                 .auth(infoDto.getAuth())
-                 .mbti(infoDto.getMbti())
-                 .password(infoDto.getPassword()).build()).getCode();
+             return userRepository.save(UserInfo.builder()
+                     .code(Long.valueOf(infoDto.getCode()))
+                     .email(infoDto.getEmail())
+                     .auth(infoDto.getAuth())
+                     .mbti(infoDto.getMbti())
+                     .password(infoDto.getPassword()).build()).getCode();
      }
 
     public String getUsermbti() {
@@ -70,8 +80,12 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
         return String.valueOf(userInfo.get().getMbti());
     }
 
-    public Optional<UserInfo> findUser(String email) {
+    public Optional<UserInfo> findUserByEmail(String email) {
          return userRepository.findByEmail(email);
+    }
+
+    public Optional<UserInfo> findUser(String code) {
+        return userRepository.findById(Long.valueOf(code));
     }
 
     public Page<UserInfo> getAllUser(int page, String filter) {

@@ -1,9 +1,6 @@
 package com.example.security.domain.user;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +13,8 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @Table(name = "USERINFO")
 public class UserInfo implements UserDetails {
 
@@ -35,14 +34,6 @@ public class UserInfo implements UserDetails {
 
     @Column(name = "mbti")
     private String mbti;
-
-    @Builder
-    public UserInfo(String email, String password, String auth, String mbti) {
-        this.email = email;
-        this.password = password;
-        this.auth = auth;
-        this.mbti = mbti;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

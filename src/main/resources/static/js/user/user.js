@@ -117,7 +117,6 @@ function validate() {
 
 function save() {
     var valid_email = $("#valid_email").val();
-
     if(validate()) {
         if(valid_email == "N") {
             swal("회원관리", "이메일 중복확인을 해주세요.", "warning").then(() => {
@@ -130,6 +129,14 @@ function save() {
             });
         }
     }
+}
+
+function modify() {
+        if(validate()) {
+            swal("회원관리", "회원수정이 완료되었습니다.", "success").then(() => {
+                $("#form").submit();
+            });
+        }
 }
 
 function deleteUser() {

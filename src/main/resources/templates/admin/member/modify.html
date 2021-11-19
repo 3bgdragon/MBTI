@@ -37,6 +37,9 @@
                             <option value="ROLE_ADMIN,ROLE_USER">관리자</option>
                             <option value="ROLE_USER" selected>일반 사용자</option>
                         </select>
+                    </td>
+                    <th>MBTI</th>
+                    <td>
                         <select name="mbti" id="mbti" th:field="${user.mbti}">
                             <option value="none">=== 선택 ===</option>
                             <option value="ISTJ">ISTJ</option>
@@ -56,11 +59,19 @@
                             <option value="ENFJ">ENFJ</option>
                         </select>
                     </td>
+                    <th>회원 상태</th>
+                    <td>
+                        <select name="status" th:field="${user.status}">
+                            <option value="normal">정상</option>
+                            <option value="ban">정지</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th>이메일</th>
                     <td>
-                        <input type="text" name="code" th:value="${user.code}">
+                        <input type="hidden" name="code" th:value="${user.code}">
+                       <!-- <input type="hidden" name="lastLoginDt" th:value="${user.lastLoginDt}">-->
                         <input type="email" name="email" id="email" th:value="${user.email}" data-type="required" placeholder="예) abc@abc.com"/>
                     </td>
                     <th>비밀번호</th>

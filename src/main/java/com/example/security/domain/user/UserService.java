@@ -20,9 +20,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.reflections.util.ConfigurationBuilder.build;
-
-
 @Service
 public class UserService extends BaseService<UserInfo, Long> implements UserDetailsService {
 
@@ -68,12 +65,17 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
     public Long modifyUser(UserInfoDto infoDto) {
          BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
          infoDto.setPassword(encoder.encode(infoDto.getPassword()));
+
+         //타임리프에서 lastLoginDt를 전달할떄 오류가나서 userInfo 객체를 만들어서 현재수정하려는 회원의 정보를 가져온다
+        Optional<UserInfo> userInfo = userRepository.findByEmail(infoDto.getEmail());
+
              return userRepository.save(UserInfo.builder()
                      .code(Long.valueOf(infoDto.getCode()))
                      .email(infoDto.getEmail())
                      .auth(infoDto.getAuth())
                      .mbti(infoDto.getMbti())
-                     .status("normal")
+                     .status(infoDto.getStatus())
+                     .lastLoginDt(userInfo.get().getLastLoginDt())
                      .password(infoDto.getPassword()).build()).getCode();
      }
 

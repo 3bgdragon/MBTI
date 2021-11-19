@@ -23,7 +23,7 @@
     <div class="container">
         <div class="float title_float">
             <div class="float_left">
-                <h1><img th:src="@{/images/member.svg}">회원목록</h1>
+                <h1><img th:src="@{/image/member.svg}">회원목록</h1>
             </div>
             <div class="float_right">
                 <div class="search_box">
@@ -58,9 +58,10 @@
                 </th>
                 <th>번호</th>
                 <th>이메일</th>
-                <!--<th>회원가입일</th>
-                <th>최종로그인</th>-->
+                <th>회원가입일</th>
+                <th>최종로그인</th>
                 <th>권한</th>
+                <th>상태</th>
                 <th>이용현황</th>
             </tr>
             <tr th:if="${users.getContent().size() == 0}">
@@ -74,10 +75,11 @@
                 </td>
                 <td th:text="${users.getTotalElements() - (users.number * users.size + userStat.index)}"></td>
                 <td th:text="${user.email}"></td>
-                <!--<td th:text="${#temporals.format(user.registDt, 'yyyy.MM.dd')}"></td>
-                <td th:text="${#temporals.format(user.lastLogin, 'yyyy.MM.dd HH:mm:ss')}"></td>-->
+                <td th:text="${#temporals.format(user.getCreatedAT(), 'yyyy.MM.dd')}"></td>
+                <td th:text="${#temporals.format(user.lastLoginDt, 'yyyy.MM.dd HH:mm:ss')}"></td>
                 <td th:if="${user.auth=='ROLE_ADMIN,ROLE_USER'}">관리자</td>
                 <td th:if="${user.auth=='ROLE_USER'}">일반 사용자</td>
+                <td th:text="${user.status}"></td>
                 <td>
                     <a th:href="@{'/admin/member/regist/' + ${user.code}}" class="modify_btn">수정</a>
                 </td>

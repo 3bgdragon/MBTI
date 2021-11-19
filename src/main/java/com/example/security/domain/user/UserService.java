@@ -17,7 +17,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
+
+import static org.reflections.util.ConfigurationBuilder.build;
 
 
 @Service
@@ -58,6 +61,7 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
                 .email(infoDto.getEmail())
                 .auth(infoDto.getAuth())
                 .mbti(infoDto.getMbti())
+                .status("normal")
                 .password(infoDto.getPassword()).build()).getCode();
     }
 
@@ -69,14 +73,24 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
                      .email(infoDto.getEmail())
                      .auth(infoDto.getAuth())
                      .mbti(infoDto.getMbti())
+                     .status("normal")
                      .password(infoDto.getPassword()).build()).getCode();
      }
 
     public String getUsermbti() {
          //현재 세션에 로그인한 사용자 정보를 가져온다
+        //현재 활동한 시간을 기록한다
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String test = authentication.getName();
         Optional<UserInfo> userInfo = userRepository.findByEmail(authentication.getName());
+        userRepository.save(UserInfo.builder()
+                .code(Long.valueOf(userInfo.get().getCode()))
+                .email(userInfo.get().getEmail())
+                .auth(userInfo.get().getAuth())
+                .mbti(userInfo.get().getMbti())
+                .password(userInfo.get().getPassword())
+                .status(userInfo.get().getStatus())
+                .lastLoginDt(LocalDateTime.now())
+                .build());
         return String.valueOf(userInfo.get().getMbti());
     }
 

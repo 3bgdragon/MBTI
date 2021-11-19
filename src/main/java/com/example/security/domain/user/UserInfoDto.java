@@ -3,6 +3,8 @@ package com.example.security.domain.user;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class UserInfoDto {
@@ -15,4 +17,8 @@ public class UserInfoDto {
     private String auth;
 
     private String mbti;
+
+    private String status;
+
+    private LocalDateTime lastLoginDt;
 }

@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +36,12 @@ public class UserInfo extends BaseTimeEntity implements UserDetails {
 
     @Column(name = "mbti")
     private String mbti;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "LAST_LOGIN_DT")
+    private LocalDateTime lastLoginDt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

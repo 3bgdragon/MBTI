@@ -84,7 +84,7 @@
             </tr>
         </table>
 
-        <!--<div th:if="${users.getTotalPages() > 1}">
+        <div th:if="${users.getTotalPages() > 1}">
             <div class="page-num"
                  th:with="start=${(users.number/maxPage) * maxPage + 1},
                   end=(${(users.totalPages == 0) ? 1 : (start + (maxPage - 1) < users.totalPages ? start + (maxPage - 1) : users.totalPages)})">
@@ -104,7 +104,7 @@
                     </li>
                 </ul>
             </div>
-        </div>-->
+        </div>
     </div>
 
 </div>

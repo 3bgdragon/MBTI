@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@EnableJpaAuditing
+/*@EnableJpaAuditing*/
 @SpringBootApplication
 @PropertySource("classpath:application.properties")
 public class SecurityApplication {

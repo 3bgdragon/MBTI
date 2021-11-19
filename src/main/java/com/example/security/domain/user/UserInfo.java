@@ -1,5 +1,6 @@
 package com.example.security.domain.user;
 
+import com.example.security.core.BaseTimeEntity;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @Table(name = "USERINFO")
-public class UserInfo implements UserDetails {
+public class UserInfo extends BaseTimeEntity implements UserDetails {
 
     @Id
     @Column

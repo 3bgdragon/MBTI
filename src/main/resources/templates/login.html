@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
-    <h1>Login</h1> <hr>
-    <h1><img th:src="@{/images/MBTI_LOGO}"></h1>
-
+<div class="admin-header">
+    <div class="login_box">
+    <h1><img th:src="@{/image/MBTI_LOGO.jpg}"></h1>
     <form action="/login" method="POST">
        <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
-        email : <input type="text" name="username"> <br>
-        password : <input type="password" name="password"> <br>
+        email  <input type="text" name="username"> <br>
+        password  <input type="password" name="password"> <br>
         <button type="submit">Login</button>
+        <button type="button" onclick="location.href='/signup'">회원 가입</button>
     </form> <br>
-
     <div th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null">
         <span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span>
     </div>
-
-    <a href="/signup">회원 가입하기!</a>
+    </div>
+</div>
 </body>
 </html>

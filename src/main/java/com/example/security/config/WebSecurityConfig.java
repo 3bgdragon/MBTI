@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/image/**");
     }
 
     @Override
@@ -33,7 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/member/list").hasRole("ADMIN")
                 .antMatchers("/admin/member/modify").hasRole("ADMIN")
                 .antMatchers("/admin/member/regist").hasRole("ADMIN")
-                .antMatchers("/admin/notice/list").hasRole("ADMIN")
                 .antMatchers("/admin/notice/regist").hasRole("ADMIN")
                 .anyRequest().authenticated() //나머지요청들은 권하의 종류에 상관없이 권한이 있어야 접근
 

@@ -79,7 +79,8 @@
                 <td th:text="${#temporals.format(user.lastLoginDt, 'yyyy.MM.dd HH:mm:ss')}"></td>
                 <td th:if="${user.auth=='ROLE_ADMIN,ROLE_USER'}">관리자</td>
                 <td th:if="${user.auth=='ROLE_USER'}">일반 사용자</td>
-                <td th:text="${user.status}"></td>
+                <td th:if="${user.status} == 'normal'">정상</td>
+                <td th:if="${user.status} == 'ban'">정지</td>
                 <td>
                     <a th:href="@{'/admin/member/regist/' + ${user.code}}" class="modify_btn">수정</a>
                 </td>

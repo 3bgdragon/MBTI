@@ -16,18 +16,17 @@ function check(element) {
 
 function validate_email() {
     var userEmail = $("#email").val();
-    console.log("userEmail",userEmail);
-
     if (!obj.validateEmail(userEmail)) {
         swal("회원관리", "이메일를 확인해주세요.\n( 허용 특수 문자 : ! @ # $ % ^ & * _ . < > ? , ` ~ )", "warning").then(() => {
             $("#userEmail").focus();
         });
         return false;
     } else {
+        console.log("userEmail",userEmail);
         $.ajax({
-            url: "/admin/member/getMemberEmail",
+            url: "admin/member/getMemberEmail",
             type: "POST",
-            data: userEmail,
+            data: JSON.stringify(userEmail),
             dataType: "json",
             contentType: "application/json",
         }).done(function (res) {

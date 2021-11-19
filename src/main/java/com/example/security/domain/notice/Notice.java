@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -28,12 +29,23 @@ public class Notice extends BaseTimeEntity {
     @Column(name = "AUTHOR", length = 100, nullable = false)
     private String author;
 
+    @Column(name = "DATE", length = 20, nullable = false)
+    private LocalDate date;
+
     @Column(name = "TITLE", length = 255, nullable = false)
     private String title;
 
     @Column(name = "CONTENT", nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "IMPORTANT", length = 1, nullable = true)
+    @Column(name = "HIT", precision = 19, nullable = false)
+    private Long hit;
+
+    @Column(name = "IMPORTANT", length = 1, nullable = false)
     private String important;
+
+    @PrePersist
+    public void prePersist() {
+        this.hit = this.hit == null ? 0 : this.hit;
+    }
 }

@@ -1,0 +1,14 @@
+strong {
+    display: inline-block;
+    width: 36px;
+    height: 24px;
+    font-size: 12px;
+    line-height: 25px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: 5px;
+    color: #f53535;
+    background-color: #ffe3e4;
+}

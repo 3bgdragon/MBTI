@@ -1,6 +1,6 @@
 var ACTIONS = {
     UPLOAD_SUMMERNOTE_IMAGE_FILE: function (file, editor) {
-        data = new FormData();
+        var data = new FormData();
         data.append("file", file);
         $.ajax({
             data: data,
@@ -19,11 +19,26 @@ var ACTIONS = {
             return false;
         }
 
+        console.log($("#important").val())
+
         $("#notice_form").submit();
-    }
+    },
+    IMPORTANT_CHECK: function (item) {
+        if (item.checked == true) {
+            item.value = "Y";
+        } else {
+            item.value = "N";
+        }
+
+        console.log(item.value)
+    },
+    ONMOUSEOVER: function (noticeId) {
+        $(".ntc_"+noticeId).css('text-decoration', 'underline');
+    },
+    ONMOUSEOUT: function (noticeId) {
+        $(".ntc_"+noticeId).css('text-decoration', 'none');
+    },
 };
-
-
 
 obj.pageInit = function () {
     $('#summernote').summernote({
@@ -75,3 +90,11 @@ obj.pageInit = function () {
         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
     });
 };
+
+$(document).ready(function () {
+    if ($("#important").val() == "Y") {
+        $("#important").prop('checked', true);
+    } else {
+        $("#important").prop('checked', false);
+    }
+})

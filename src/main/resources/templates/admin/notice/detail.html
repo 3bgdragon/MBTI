@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="~{layout/common}">
 
@@ -8,13 +9,11 @@
 
     <!-- Page css -->
     <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/notice.css}">
     </th:block>
 
     <!-- Page js -->
     <th:block layout:fragment="script">
-        <script th:inline="javascript">
-
-        </script>
 
         <script th:src="@{/js/notice/notice.js}"></script>
     </th:block>
@@ -27,12 +26,14 @@
         <form th:action="@{/admin/notice/save}" id="notice_form" method="post">
             <div class="float title_float">
                 <div class="float_left">
-                    <h1>공지사항 등록</h1>
+                    <h1><a th:href="@{/admin/notice/list}">공지사항 &#62;</a></h1> <br>
+                    <b th:text="|작성자 ${notice.author}|" style="padding-bottom: 5px;"></b> <br>
+                    <span th:text="|${notice.date} / 조회 ${notice.hit}|" style="color: #979797"></span>
                 </div>
                 <div class="float_right">
                     <div class="search_box">
                         <a th:href="@{/admin/notice/list}" class="content_top_btn">목록</a>
-                        <button type="button" id="form-save" onclick="ACTIONS.NOTICE_SAVE();">저장</button>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/notice/modify/{id}(id=${notice.noticeId})}" class="content_top_btn" >수정</a>
                     </div>
                 </div>
             </div>
@@ -41,17 +42,15 @@
                 <tr>
                     <th>제목</th>
                     <td>
-                        <input type="text" id="title" name="title" title="제목" data-type="required" style="width: 70%"/>
-                        <input type="checkbox" id="important" name="important" onclick="ACTIONS.IMPORTANT_CHECK(this)">
-                        <label for="important">중요사항</label>
+                        <strong th:if="${notice.important == 'Y'}" th:text="'공지'" ></strong>
+                        <input type="text" id="title" name="title" title="제목" data-type="required" th:value="${notice.title}"
+                               style="width: 70%" readonly/>
                     </td>
                 </tr>
                 <tr>
                     <th>내용</th>
                     <td>
-                        <form method="post">
-                            <textarea name="content" id="summernote" class="summernote"></textarea>
-                        </form>
+                        <span th:utext="${notice.content}"></span>
                     </td>
                 </tr>
             </table>

@@ -125,7 +125,7 @@ input {
     font-family: "NEXON Lv1 Gothic OTF", sans-serif !important;
 }
 
-input[type="checkbox"] {
+/*input[type="checkbox"] {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -134,9 +134,9 @@ input[type="checkbox"] {
     overflow: hidden;
     clip:rect(0,0,0,0);
     border: 0;
-}
+}*/
 
-input[type="checkbox"]+ label {
+/*input[type="checkbox"]+ label {
     position:relative;
     display: inline-block;
     cursor: pointer;
@@ -157,14 +157,13 @@ input[type="checkbox"]+ label:before {
 
 input[type="checkbox"]:checked + label:before {
     position:absolute;
-    content:url("../images/input-check.png");
     top:-11px;
     left:0;
     width: 13px;
     height: 13px;
     background-color: #20208a;
     border:1px solid #20208a;
-}
+}*/
 
 input:read-only {
     background:#f6f6f6;

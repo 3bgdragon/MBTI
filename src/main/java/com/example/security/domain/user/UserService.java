@@ -78,19 +78,9 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
      }
 
     public String getUsermbti() {
-         //현재 세션에 로그인한 사용자 정보를 가져온다
-        //현재 활동한 시간을 기록한다
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Optional<UserInfo> userInfo = userRepository.findByEmail(authentication.getName());
-        userRepository.save(UserInfo.builder()
-                .code(Long.valueOf(userInfo.get().getCode()))
-                .email(userInfo.get().getEmail())
-                .auth(userInfo.get().getAuth())
-                .mbti(userInfo.get().getMbti())
-                .password(userInfo.get().getPassword())
-                .status(userInfo.get().getStatus())
-                .lastLoginDt(LocalDateTime.now())
-                .build());
+
         return String.valueOf(userInfo.get().getMbti());
     }
 
@@ -127,4 +117,19 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
         return new PageImpl<>(results.getResults(), pageable, results.getTotal());
     }
 
+    public void makeLastLogin() {
+        //현재 세션에 로그인한 사용자 정보를 가져온다
+        //현재 활동한 시간을 기록한다
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<UserInfo> userInfo = userRepository.findByEmail(authentication.getName());
+        userRepository.save(UserInfo.builder()
+                .code(Long.valueOf(userInfo.get().getCode()))
+                .email(userInfo.get().getEmail())
+                .auth(userInfo.get().getAuth())
+                .mbti(userInfo.get().getMbti())
+                .password(userInfo.get().getPassword())
+                .status(userInfo.get().getStatus())
+                .lastLoginDt(LocalDateTime.now())
+                .build());
+    }
 }

@@ -41,6 +41,7 @@ public class UserController {
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         String mbti = userService.getUsermbti();
+        userService.makeLastLogin();
         model.addAttribute("mbti", mbti);
         return "/user/dashboard";
     }

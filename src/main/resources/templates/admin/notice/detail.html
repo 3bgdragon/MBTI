@@ -53,6 +53,16 @@
                         <span th:utext="${notice.content}"></span>
                     </td>
                 </tr>
+                <tr>
+                    <th>댓글</th>
+                    <td>
+                        <form th:action="@{/admin/motice/comment}" method="post">
+                            <input type="hidden" id="noticeId" name="noticeId" th:value="${notice.noticeId}" style="width: 70%">
+                            <input type="text" id="comment" name="comment" title="댓글">
+                            <button type="button" onclick="ACTIONS.COMMENT">입력</button>
+                        </form>
+                    </td>
+                </tr>
             </table>
         </form>
     </div>

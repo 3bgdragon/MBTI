@@ -38,6 +38,14 @@ var ACTIONS = {
     ONMOUSEOUT: function (noticeId) {
         $(".ntc_"+noticeId).css('text-decoration', 'none');
     },
+    COMMENT: function () {
+        if (!$("#comment").val()) {
+            swal("공지사항", "댓글을 입력해주세요.", "warning");
+            return false;
+        }
+
+        $("#comment_form").submit();
+    }
 };
 
 obj.pageInit = function () {

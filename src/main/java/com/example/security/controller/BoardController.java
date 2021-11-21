@@ -2,6 +2,7 @@ package com.example.security.controller;
 
 import com.example.security.domain.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BoardController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/user/mbti_board")
     public String mbtiBoard(Model model) {

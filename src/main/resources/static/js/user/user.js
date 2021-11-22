@@ -20,28 +20,13 @@ function validate_email() {
         swal("회원관리", "이메일를 확인해주세요.\n( 허용 특수 문자 : ! @ # $ % ^ & * _ . < > ? , ` ~ )", "warning").then(() => {
             $("#userEmail").focus();
         });
-        $.ajax({
-            url: "admin/member/getMemberEmail",
-            type: "POST",
-            data: JSON.stringify(userEmail),
-            dataType: "json",
-            contentType: "application/json",
-        }).done(function (res) {
-            console.log("res",res);
-            if(res) {
-                $("#valid_email").val("Y");
-                swal("회원관리", "사용가능한 이메일 입니다.", "success");
-            } else {
-                swal("회원관리", "이미 존재하는 이메일 입니다.", "warning");
-            }
-        })
-        /*return false;*/
+        return false;
     } else {
         console.log("userEmail",userEmail);
         $.ajax({
-            url: "admin/member/getMemberEmail",
+            url: "/admin/member/getMemberEmail",
             type: "POST",
-            data: JSON.stringify(userEmail),
+            data: userEmail,
             dataType: "json",
             contentType: "application/json",
         }).done(function (res) {

@@ -1,4 +1,4 @@
-package com.example.security.domain.notice.DTO;
+package com.example.security.domain.notice.dto;
 
 import com.example.security.domain.notice.Notice;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Data
-public class NoticeRequest {
+public class NoticeHitRequest {
 
     private Long noticeId;
 
@@ -24,15 +24,15 @@ public class NoticeRequest {
 
     private String important;
 
-    public Notice toEntity() {
+    public Notice toEntity(NoticeResponse response) {
         return Notice.builder()
-                .noticeId(this.noticeId)
-                .author(this.author)
-                .date(this.date)
-                .title(this.title)
-                .content(this.content)
-                .hit(this.hit)
-                .important(this.important)
+                .noticeId(response.getNoticeId())
+                .author(response.getAuthor())
+                .date(response.getDate())
+                .title(response.getTitle())
+                .content(response.getContent())
+                .hit(response.getHit())
+                .important(response.getImportant())
                 .build();
     }
 }

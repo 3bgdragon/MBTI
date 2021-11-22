@@ -445,3 +445,7 @@ textarea {
 .popup_content table {
     margin-top:1em;
 }
+
+.summernote .note-editable {
+    text-align: justify
+}

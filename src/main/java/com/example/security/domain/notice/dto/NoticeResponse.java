@@ -1,4 +1,4 @@
-package com.example.security.domain.notice.DTO;
+package com.example.security.domain.notice.dto;
 
 import com.example.security.domain.notice.Notice;
 import lombok.Data;

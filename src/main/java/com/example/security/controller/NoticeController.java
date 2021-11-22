@@ -1,7 +1,7 @@
 package com.example.security.controller;
 
-import com.example.security.domain.notice.DTO.NoticeRequest;
-import com.example.security.domain.notice.DTO.NoticeResponse;
+import com.example.security.domain.notice.dto.NoticeRequest;
+import com.example.security.domain.notice.dto.NoticeResponse;
 import com.example.security.domain.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +78,17 @@ public class NoticeController {
         noticeService.modifyNotice(request, username);
 
         return new RedirectView("/admin/notice/detail/"+request.getNoticeId());
+    }
+
+    @PostMapping("/delete")
+    public RedirectView delete(@RequestBody Long noticeId) {
+        noticeService.deleteNotice(noticeId);
+
+        return new RedirectView("/admin/notice/list");
+    }
+
+    @PostMapping("/comment")
+    public String comment() {
+        return null;
     }
 }

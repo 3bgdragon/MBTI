@@ -29,11 +29,14 @@
                     <h1><a th:href="@{/admin/notice/list}">공지사항 &#62;</a></h1> <br>
                     <b th:text="|작성자 ${notice.author}|" style="padding-bottom: 5px;"></b> <br>
                     <span th:text="|${notice.date} / 조회 ${notice.hit}|" style="color: #979797"></span>
+                    <input type="hidden" id="noticeId" th:value="${notice.noticeId}">
                 </div>
                 <div class="float_right">
                     <div class="search_box">
                         <a th:href="@{/admin/notice/list}" class="content_top_btn">목록</a>
                         <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/notice/modify/{id}(id=${notice.noticeId})}" class="content_top_btn" >수정</a>
+                        <button type="button" class="choice_delete" th:onclick="ACTIONS.DELETE()">삭제</button>
+<!--                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/notice/delete/{id}(id=${notice.noticeId})}" class="content_top_btn" >삭제</a>-->
                     </div>
                 </div>
             </div>
@@ -53,16 +56,16 @@
                         <span th:utext="${notice.content}"></span>
                     </td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <th>댓글</th>
                     <td>
                         <form th:action="@{/admin/motice/comment}" method="post">
                             <input type="hidden" id="noticeId" name="noticeId" th:value="${notice.noticeId}" style="width: 70%">
                             <input type="text" id="comment" name="comment" title="댓글">
-                            <button type="button" onclick="ACTIONS.COMMENT">입력</button>
+                            <button type="button" onclick="ACTIONS.COMMENT()">입력</button>
                         </form>
                     </td>
-                </tr>
+                </tr>-->
             </table>
         </form>
     </div>

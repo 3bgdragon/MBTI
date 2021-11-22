@@ -1,11 +1,10 @@
 package com.example.security.controller;
 
-import com.example.security.domain.notice.DTO.NoticeHitRequest;
-import com.example.security.domain.notice.DTO.NoticeRequest;
-import com.example.security.domain.notice.DTO.NoticeResponse;
-import com.example.security.domain.notice.Notice;
+import com.example.security.domain.notice.dto.NoticeRequest;
+import com.example.security.domain.notice.dto.NoticeResponse;
 import com.example.security.domain.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,35 +12,36 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/admin/notice")
 public class NoticeController {
 
-    private final NoticeService noticeService;
+    @Autowired
+    private NoticeService noticeService;
 
     @GetMapping("/list")
     public String gets(String filter, @RequestParam(defaultValue = "1") int page, Model model) {
         Page<NoticeResponse> list = noticeService.gets(page, filter);
         model.addAttribute("notices", list);
-        model.addAttribute("contentSize", list.getContent().size());
-        model.addAttribute("page", page);
+        model.addAttribute("noticeElements", list.getTotalElements());
+        model.addAttribute("number", list.getNumber());
+        model.addAttribute("size", list.getSize());
         model.addAttribute("maxPage", 10);
         model.addAttribute("filter", filter);
 
         return "admin/notice/list";
     }
 
-    @PostMapping("/list/page")
-    public String getPages(@RequestParam int page, @RequestBody String filter, Model model) {
+    @PostMapping("/list/paging")
+    public String getPages(@RequestParam int page, Model model, @RequestBody String filter) {
         Page<NoticeResponse> list = noticeService.gets(page, filter);
         model.addAttribute("notices", list);
+        model.addAttribute("noticeElements", list.getTotalElements());
+        model.addAttribute("number", list.getNumber());
+        model.addAttribute("size", list.getSize());
         model.addAttribute("page", page);
         model.addAttribute("maxPage", 10);
-        model.addAttribute("filter", filter);
 
         return "admin/notice/list :: notice-list-fragment";
     }
@@ -81,5 +81,17 @@ public class NoticeController {
         noticeService.modifyNotice(request, username);
 
         return new RedirectView("/admin/notice/detail/"+request.getNoticeId());
+    }
+
+    @PostMapping("/delete")
+    public RedirectView delete(@RequestBody Long noticeId) {
+        noticeService.deleteNotice(noticeId);
+
+        return new RedirectView("/admin/notice/list");
+    }
+
+    @PostMapping("/comment")
+    public String comment() {
+        return null;
     }
 }

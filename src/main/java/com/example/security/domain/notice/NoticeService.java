@@ -1,9 +1,9 @@
 package com.example.security.domain.notice;
 
 import com.example.security.domain.BaseService;
-import com.example.security.domain.notice.DTO.NoticeHitRequest;
-import com.example.security.domain.notice.DTO.NoticeRequest;
-import com.example.security.domain.notice.DTO.NoticeResponse;
+import com.example.security.domain.notice.dto.NoticeHitRequest;
+import com.example.security.domain.notice.dto.NoticeRequest;
+import com.example.security.domain.notice.dto.NoticeResponse;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
 import org.springframework.data.domain.Page;
@@ -12,8 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 
 @Service
@@ -29,6 +27,12 @@ public class NoticeService extends BaseService<Notice, Long> {
     public Page<NoticeResponse> gets(int page, String filter) {
         Pageable pageable = PageRequest.of(page-1, 10);
         BooleanBuilder builder = new BooleanBuilder();
+
+        if(isNotEmpty(filter)) {
+            if(filter.equals(" ")){
+                filter = null;
+            }
+        }
 
         if (isNotEmpty(filter)) {
             builder.and(qNotice.title.contains(filter));
@@ -86,5 +90,12 @@ public class NoticeService extends BaseService<Notice, Long> {
         }
 
         save(request.toEntity());
+    }
+
+    @Transactional
+    public void deleteNotice(Long noticeId) {
+        if (isNotEmpty(String.valueOf(noticeId))) {
+            noticeRepository.deleteById(noticeId);
+        }
     }
 }

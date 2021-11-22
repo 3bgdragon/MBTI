@@ -27,13 +27,11 @@
             </div>
             <div class="float_right">
                 <div class="search_box">
-                    <form th:action="@{/admin/member/list}" method="get">
                         <input id="filter" type="text" name="filter" th:value="${filter}" placeholder="이메일을 입력해주세요."
-                               onkeypress="javascript:if (event.keyCode == 13) {this.submit()}" />
-                        <button type="submit">검색</button>
+                               onkeypress="javascript:if (event.keyCode == 13) {search()}" />
+                        <button onclick="search()">검색</button>
                         <a th:href="@{/admin/member/regist}"
                            onclick="localStorage.setItem('click','user_regist');" class="content_top_btn">회원등록</a>
-                    </form>
                 </div>
             </div>
         </div>

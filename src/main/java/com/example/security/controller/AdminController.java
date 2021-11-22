@@ -72,7 +72,7 @@ public class AdminController {
     @RequestMapping(value = "/member/getMemberEmail", method = RequestMethod.POST)
     public Boolean memberEmail(Model model,@RequestBody String email) {
         Optional<UserInfo> userInfo = userService.findUserByEmail(email);
-
+        Optional<UserInfo> test = userInfo;
         if(userInfo.isEmpty()) return true;
         else return false;
     }

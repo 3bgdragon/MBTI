@@ -87,6 +87,7 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
     }
 
     public Optional<UserInfo> findUserByEmail(String email) {
+        Optional<UserInfo> test = userRepository.findByEmail(email);
          return userRepository.findByEmail(email);
     }
 
@@ -98,8 +99,8 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
         Pageable pageable = PageRequest.of(page - 1, 10);
         BooleanBuilder builder = new BooleanBuilder();
 
-        if(isNotEmpty(filter)){
-            if(filter.equals("none") ) {
+        if(isNotEmpty(filter)) {
+            if(filter.equals(" ")){
                 filter = null;
             }
         }

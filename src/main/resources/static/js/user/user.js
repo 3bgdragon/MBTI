@@ -20,7 +20,22 @@ function validate_email() {
         swal("회원관리", "이메일를 확인해주세요.\n( 허용 특수 문자 : ! @ # $ % ^ & * _ . < > ? , ` ~ )", "warning").then(() => {
             $("#userEmail").focus();
         });
-        return false;
+        $.ajax({
+            url: "admin/member/getMemberEmail",
+            type: "POST",
+            data: JSON.stringify(userEmail),
+            dataType: "json",
+            contentType: "application/json",
+        }).done(function (res) {
+            console.log("res",res);
+            if(res) {
+                $("#valid_email").val("Y");
+                swal("회원관리", "사용가능한 이메일 입니다.", "success");
+            } else {
+                swal("회원관리", "이미 존재하는 이메일 입니다.", "warning");
+            }
+        })
+        /*return false;*/
     } else {
         console.log("userEmail",userEmail);
         $.ajax({
@@ -43,7 +58,6 @@ function validate_email() {
 
 function validate() {
     var result = true;
-    alert($("#mbti").val());
     $("[data-type*='required']").each(function () {
         if (!$(this).val()) {
             if ($(this).attr("type") == "password" && $("#modify").val() == "Y") return;
@@ -107,7 +121,7 @@ function modify() {
 function userListPaging(page) {
     filter = $( '#filter' ).val();
     if($( '#filter' ).val() == "") {
-        filter = "none";
+        filter = " ";
     }
     $.ajax({
         type: "POST",
@@ -174,6 +188,28 @@ function deleteUser() {
             }
         });
     }
+}
+
+function search() {
+    var filter = $("#filter").val();
+    if(filter.length <= 0) {
+        swal("회원관리", "검색어를 입력해주세요.", "warning").then(() => {
+            $("#filter").focus();
+        });
+    } else {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            data: filter,
+            url: "/admin/member/list/paging/?page=" + 1,
+            success: function(result) {
+                $("#userListFrag").replaceWith(result);
+            },
+            error: function (request, status, error){
+            }
+        });
+    }
+
 }
 
 

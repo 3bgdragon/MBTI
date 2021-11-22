@@ -1,5 +1,5 @@
 window.onload = function(){
-    const username = $("#email").val();
+    const username = $("#email").text();
 
     $("#disconn").on("click", (e) => {
         disconnect();

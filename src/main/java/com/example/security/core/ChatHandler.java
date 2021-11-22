@@ -36,9 +36,6 @@ public class ChatHandler extends TextWebSocketHandler {
     /* Client가 접속 시 호출되는 메서드 */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        if (!list.isEmpty()) {
-            return;
-        }
         list.add(session);
         log.info(session + "클라이언트 접속");
     }

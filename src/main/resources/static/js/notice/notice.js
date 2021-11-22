@@ -1,4 +1,24 @@
 var ACTIONS = {
+    PAGE: function (page) {
+        var filter = $( '#filter' ).val();
+
+        if($( '#filter' ).val() == "") {
+            filter = " ";
+        }
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            data: filter,
+            url: "/admin/notice/list/paging/?page=" + page,
+            success: function(result) {
+                $("#notice-list-fragment").replaceWith(result);
+            },
+            error: function (request, status, error){
+                console.log(error)
+            }
+        });
+    },
     UPLOAD_SUMMERNOTE_IMAGE_FILE: function (file, editor) {
         var data = new FormData();
         data.append("file", file);

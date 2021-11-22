@@ -24,21 +24,24 @@ public class NoticeController {
     public String gets(String filter, @RequestParam(defaultValue = "1") int page, Model model) {
         Page<NoticeResponse> list = noticeService.gets(page, filter);
         model.addAttribute("notices", list);
-        model.addAttribute("contentSize", list.getContent().size());
-        model.addAttribute("page", page);
+        model.addAttribute("noticeElements", list.getTotalElements());
+        model.addAttribute("number", list.getNumber());
+        model.addAttribute("size", list.getSize());
         model.addAttribute("maxPage", 10);
         model.addAttribute("filter", filter);
 
         return "admin/notice/list";
     }
 
-    @PostMapping("/list/page")
-    public String getPages(@RequestParam int page, @RequestBody String filter, Model model) {
+    @PostMapping("/list/paging")
+    public String getPages(@RequestParam int page, Model model, @RequestBody String filter) {
         Page<NoticeResponse> list = noticeService.gets(page, filter);
         model.addAttribute("notices", list);
+        model.addAttribute("noticeElements", list.getTotalElements());
+        model.addAttribute("number", list.getNumber());
+        model.addAttribute("size", list.getSize());
         model.addAttribute("page", page);
         model.addAttribute("maxPage", 10);
-        model.addAttribute("filter", filter);
 
         return "admin/notice/list :: notice-list-fragment";
     }

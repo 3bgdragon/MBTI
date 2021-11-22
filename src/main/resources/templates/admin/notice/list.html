@@ -32,8 +32,8 @@
             </div>
             <div class="float_right">
                 <div class="search_box">
-                    <form th:action="@{/notice/list}" method="get">
-                        <input type="text" name="filter" th:id="filter" placeholder="검색어를 입력하세요."
+                    <form th:action="@{/admin/notice/list}" method="get">
+                        <input type="text" name="filter" id="filter" placeholder="검색어를 입력하세요."
                                onkeypress="javascript:if (event.keyCode == 13) {this.submit()}" autocomplete="off">
                         <button type="submit">검색</button>
 
@@ -97,6 +97,28 @@
                         th:style="${notice.important == 'Y'} ? 'background-color: yellow' : 'background-color: none'"></td>
                 </tr>
             </table>
+
+            <div th:if="${notices.getTotalPages() > 1}">
+                <div class="page-num" id="page-num"
+                     th:with="start=${(notices.number/maxPage) * maxPage + 1},
+                      end=(${(notices.totalPages == 0) ? 1 : (start + (maxPage - 1) < notices.totalPages ? start + (maxPage - 1) : notices.totalPages)})">
+                    <ul>
+                        <li class="_page">
+                            <a href="javascript:void(0);" onclick="ACTIONS.PAGE(1)" th:text="'<<'"></a>
+                        </li>
+
+                        <li th:each="page: ${#numbers.sequence(start, end)}" class="_page">
+                            <a href="javascript:void(0);" th:onclick="ACTIONS.PAGE([[${page}]])"
+                               th:text="${page}" th:classappend="${page == notices.number + 1} ? 'page-num01'"></a>
+                        </li>
+
+                        <li class="_page">
+                            <a href="javascript:void(0);" th:onclick="ACTIONS.PAGE([[${notices.totalPages}]])"
+                               th:text="'>>'"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

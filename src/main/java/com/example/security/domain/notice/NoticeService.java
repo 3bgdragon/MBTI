@@ -28,6 +28,12 @@ public class NoticeService extends BaseService<Notice, Long> {
         Pageable pageable = PageRequest.of(page-1, 10);
         BooleanBuilder builder = new BooleanBuilder();
 
+        if(isNotEmpty(filter)) {
+            if(filter.equals(" ")){
+                filter = null;
+            }
+        }
+
         if (isNotEmpty(filter)) {
             builder.and(qNotice.title.contains(filter));
             builder.or(qNotice.author.contains(filter));

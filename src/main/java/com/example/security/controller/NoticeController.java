@@ -1,10 +1,11 @@
 package com.example.security.controller;
 
+import com.example.security.domain.notice.comment.NoticeCommentService;
+import com.example.security.domain.notice.comment.dto.CommentRequest;
 import com.example.security.domain.notice.dto.NoticeRequest;
 import com.example.security.domain.notice.dto.NoticeResponse;
 import com.example.security.domain.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,8 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/admin/notice")
 public class NoticeController {
 
-    @Autowired
-    private NoticeService noticeService;
+    private final NoticeService noticeService;
+    private final NoticeCommentService noticeCommentService;
 
     @GetMapping("/list")
     public String gets(String filter, @RequestParam(defaultValue = "1") int page, Model model) {
@@ -91,7 +92,17 @@ public class NoticeController {
     }
 
     @PostMapping("/comment")
-    public String comment() {
-        return null;
+    public RedirectView comment(@RequestParam Long id, @RequestBody CommentRequest request, Authentication authentication, Model model) {
+        String username = authentication.getName();
+        model.addAttribute("commentList", noticeCommentService.saveComment(id, username, request));
+
+        return new RedirectView("/admin/notice/detail/"+id);
+    }
+
+    @GetMapping("/comment/delete/{noticeId}/{id}")
+    public RedirectView deleteComment(@PathVariable("noticeId") Long noticeId, @PathVariable("id") Long id) {
+        noticeCommentService.deleteComment(id);
+
+        return new RedirectView("/admin/notice/detail/"+noticeId);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.security.domain.notice;
 
 import com.example.security.core.BaseTimeEntity;
+import com.example.security.domain.notice.comment.NoticeComment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,6 +45,9 @@ public class Notice extends BaseTimeEntity {
 
     @Column(name = "IMPORTANT", length = 1, nullable = false)
     private String important;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "notice", cascade = CascadeType.ALL)
+    List<NoticeComment> childList;
 
     @PrePersist
     public void prePersist() {

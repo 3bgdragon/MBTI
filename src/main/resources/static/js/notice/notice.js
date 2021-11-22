@@ -13,9 +13,6 @@ var ACTIONS = {
             url: "/admin/notice/list/paging/?page=" + page,
             success: function(result) {
                 $("#notice-list-fragment").replaceWith(result);
-            },
-            error: function (request, status, error){
-                console.log(error)
             }
         });
     },
@@ -86,12 +83,39 @@ var ACTIONS = {
         $(".ntc_"+noticeId).css('text-decoration', 'none');
     },
     COMMENT: function () {
-        if (!$("#comment").val()) {
+        if (!$("#content").val()) {
             swal("공지사항", "댓글을 입력해주세요.", "warning");
             return false;
-        }
+        } else {
+            var noticeId = $("#noticeId").val();
+            var comment = {content: $("#content").val()};
 
-        $("#comment_form").submit();
+            $.ajax({
+                type: "POST",
+                url: "/admin/notice/comment/?id="+noticeId,
+                contentType: "application/json",
+                data: JSON.stringify(comment),
+                success: function (res) {
+                    window.location.reload();
+                }
+            })
+        }
+    },
+    COMMENT_MODIFY: function (item) {
+        var commentId = $(item).attr('id');
+    },
+    COMMENT_DELETE: function (item) {
+        var commentId = $(item).attr('id').replace("comment-delete_", "");
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/notice/comment/delete/id="+commentId,
+            contentType: "application/json",
+            success: function (res) {
+
+            }
+        })
+
     }
 };
 
@@ -142,6 +166,12 @@ obj.pageInit = function () {
         }
         e.preventDefault();
     });
+
+    $('#content').on('keyup', function () {
+        if ($(this).val().length > 10) {
+            $(this).val($(this).val().substring(0, 10));
+        }
+    })
 };
 
 $(document).ready(function () {

@@ -301,6 +301,13 @@ table td img {
     color:#fff
 }
 
+.delete_btn {
+    padding: 3px 1em;
+    border:1px solid #de284a;
+    background:#de284a;
+    color:#fff
+}
+
 .choice_delete {
     border:1px solid #212121;
     background:#212121;
@@ -394,7 +401,7 @@ table td img {
 }
 
 textarea {
-    width:100%;
+    width:70%;
     border:1px solid #ececec;
     padding:1em;
     resize: none;

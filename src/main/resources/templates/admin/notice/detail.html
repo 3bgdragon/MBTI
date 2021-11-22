@@ -28,7 +28,7 @@
                 <div class="float_left">
                     <h1><a th:href="@{/admin/notice/list}">공지사항 &#62;</a></h1> <br>
                     <b th:text="|작성자 ${notice.author}|" style="padding-bottom: 5px;"></b> <br>
-                    <span th:text="|${notice.date} / 조회 ${notice.hit}|" style="color: #979797"></span>
+                    <span th:text="|${notice.date} / 조회 ${notice.hit} / 댓글 ${notice.childList.size()}|" style="color: #979797"></span>
                     <input type="hidden" id="noticeId" th:value="${notice.noticeId}">
                 </div>
                 <div class="float_right">
@@ -56,16 +56,31 @@
                         <span th:utext="${notice.content}"></span>
                     </td>
                 </tr>
-                <!--<tr>
-                    <th>댓글</th>
+                <tr>
+                    <th th:text="|댓글 ${notice.childList.size()}개|">댓글</th>
                     <td>
-                        <form th:action="@{/admin/motice/comment}" method="post">
-                            <input type="hidden" id="noticeId" name="noticeId" th:value="${notice.noticeId}" style="width: 70%">
-                            <input type="text" id="comment" name="comment" title="댓글">
-                            <button type="button" onclick="ACTIONS.COMMENT()">입력</button>
-                        </form>
+                        <div>
+                            <textarea name="content" id="content" rows="1" placeholder="댓글을 입력해주세요."></textarea>
+                            <button type="button" onclick="ACTIONS.COMMENT()" class="float_right" style="display:block;">입력</button>
+                            <div style="margin-bottom: 10px"></div>
+                        </div>
+
+                        <div style="height: 10px"></div>
+                        <div id="notice-comment-fragment" th:each="comment : ${notice.childList}"
+                             style="display: block; padding: 10px 30px 0 30px; text-align: center">
+                                    <a th:href="@{#}" th:text="${comment.author}" class="float_left" style="padding-right: 10px"></a>
+                                    <span th:text="${comment.content}" style="display: inline-block; width: 900px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" ></span>
+                                    <span th:text="${#temporals.format(comment.date, 'yyyy.MM.dd')}" style="color: #979797"></span>
+                                <div class="float_right">
+                                    <button type="button" class="modify_btn" th:id="comment-modify_+${comment.id}" onclick="ACTIONS.COMMENT_MODOIFY(this)" th:if="${#authentication.name == comment.author}" >수정</button>
+                                    <a class="delete_btn" th:href="@{/admin/notice/comment/delete/{noticeId}/{id}(noticeId=${notice.noticeId}, id=${comment.id})}" th:if="${#authentication.name == comment.author}" >삭제</a>
+<!--                                    <button type="button" class="delete_btn" th:id="comment-delete_+${comment.id}" onclick="ACTIONS.COMMENT_DELETE(this)" th:if="${#authentication.name == comment.author}" >삭제</button>-->
+                                </div>
+                        </div>
+
+                        <div style="margin-bottom: 35px"></div>
                     </td>
-                </tr>-->
+                </tr>
             </table>
         </form>
     </div>

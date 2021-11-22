@@ -47,7 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/admin/denied")   //권한이 부족한 페이지 접근시 해당 url 호출
                 .and()
-                .csrf().disable().cors();    //csrf 관련 설정 비활성화
+                .csrf().disable().cors()    //csrf 관련 설정 비활성화
+                .and()
+                .headers().frameOptions().sameOrigin()   //사이트 내 컨텐츠들이 다른 사이트에 포함되지 않도록해 'clickjacking' 공격을 막아내기 위해 사용된다.
         ;
     }
 

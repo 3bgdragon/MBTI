@@ -37,7 +37,7 @@
         <li class="menu_division"></li>
         <li>
             <span>
-                <a href="javascript:void(0);">
+                <a href="javascript:void(0);" id="mbtiBoard">
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                      viewBox="0 0 336 336" xml:space="preserve">
                     <g>
@@ -50,7 +50,7 @@
                 </svg>
                 MBTI 게시판</a>
             </span>
-            <ul class="sub-group">
+            <ul class="sub-group" id="mbti-group">
                 <li class="sidbar-item">
                     <a id="my_mbti_board" href="/user/mbti_board">같은 MBTI 게시판</a>
                 </li>
@@ -62,7 +62,7 @@
         <li sec:authorize="hasRole('ROLE_ADMIN')" class="menu_division">관리자용</li>
         <li sec:authorize="hasRole('ROLE_ADMIN')">
             <span>
-                <a href="javascript:void(0);">
+                <a href="javascript:void(0);" id="user">
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                      viewBox="0 0 336 336" style="enable-background:new 0 0 336 336;" xml:space="preserve">
                 <path d="M-256.9,450.6c3.9-3.1,8-5.9,12.4-8.2c-7.2-8.2-11.5-18.9-11.5-30.6c0-25.7,20.9-46.6,46.6-46.6s46.6,20.9,46.6,46.6
@@ -83,7 +83,7 @@
                 회원 관리</a>
             </span>
 
-            <ul class="sub-group" sec:authorize="hasRole('ROLE_ADMIN')">
+            <ul class="sub-group" id="user-group" sec:authorize="hasRole('ROLE_ADMIN')">
                 <li class="sidbar-item">
                     <a id="user_list" href="/admin/member/list">회원 목록</a>
                 </li>
@@ -148,7 +148,7 @@
                 공지사항</a>
             </span>
 
-            <ul class="sub-group">
+            <ul class="sub-group" id="notice-group">
                 <li class="sidbar-item">
                     <a id="notice_list" href="/admin/notice/list">공지사항 목록</a>
                 </li>
@@ -162,14 +162,18 @@
         <label><b>채팅방</b></label>
     </div>
     <div>
-        <div id="msgArea" class="col"></div>
+        <div id="msgArea" style="height: 130px; overflow: auto" class="col"></div>
         <div class="col-6">
             <div class="input-group mb-3">
+                <input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+            </div>
+            <!--<div class="input-group mb-3">
                 <input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
     <div class="footer_copyright">

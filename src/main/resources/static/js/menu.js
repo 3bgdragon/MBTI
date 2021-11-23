@@ -19,7 +19,8 @@ $(function () {
     }
 
     $(".app-sidebar li").click(function () {
-        console.log($(this))
+        $(".app-sidebar li").not(this).children('ul').slideUp();
+        $(".app-sidebar li").not(this).children('span').children('a').removeClass("active_menu_parent");
         $(this).children('ul').slideToggle();
         $(this).children('span').children("a").toggleClass("active_menu_parent");
     });

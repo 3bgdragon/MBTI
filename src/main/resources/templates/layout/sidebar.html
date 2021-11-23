@@ -162,7 +162,7 @@
         <label><b>채팅방</b></label>
     </div>
     <div>
-        <div id="msgArea" style="height: 170px; overflow: auto" class="col"></div>
+        <div id="msgArea" th:style="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? 'height: 170px; overflow: auto' : 'height: 250px; overflow: auto'}" class="col"></div>
         <div class="col-6">
             <div class="input-group mb-3">
                 <input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">

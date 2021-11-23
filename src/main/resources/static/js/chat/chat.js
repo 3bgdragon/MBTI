@@ -57,7 +57,6 @@ window.onload = function(){
 
         console.log("sessionID : " + sessionId);
         console.log("cur_session : " + cur_session);
-
         //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
         if(sessionId == cur_session){
             var str = "<div class='col-6'>";
@@ -65,6 +64,7 @@ window.onload = function(){
             str += "<b>" + sessionId + " : " + message + "</b>";
             str += "</div></div>";
             $("#msgArea").append(str);
+            $("#msgArea").scrollTop($(document).height());
         }
         else{
             var str = "<div class='col-6'>";
@@ -72,6 +72,7 @@ window.onload = function(){
             str += "<b>" + sessionId + " : " + message + "</b>";
             str += "</div></div>";
             $("#msgArea").append(str);
+            $("#msgArea").scrollTop($(document).height());
         }
     }
 }

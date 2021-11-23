@@ -4,7 +4,7 @@
 
 <div th:fragment="sidebar" class="app-sidebar">
     <div class="admin-header">
-        <h1><img th:src="@{/image/MBTI_LOGO.jpg}"></h1>
+        <h1><a href="/dashboard"><img th:src="@{/image/MBTI_LOGO.jpg}"></a></h1>
         <span>
             Email:<p th:id="email" sec:authentication="name"></p> <br>
             MBTI:<p th:text="${mbti}"></p> <br>

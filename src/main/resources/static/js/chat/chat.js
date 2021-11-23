@@ -1,6 +1,16 @@
+var count = 0;
 window.onload = function(){
     const username = $("#email").text();
 
+    //도배유저 체크용 메소드
+    setInterval(function(){ checkUser(); }, 10000);
+    function checkUser() {
+        if(count > 10) {
+            kickUser();
+        }
+        count = 0;
+    }
+    
     $("#disconn").on("click", (e) => {
         disconnect();
     })
@@ -36,12 +46,24 @@ window.onload = function(){
         var str = username.split("@")[0] + ": 님이 입장하셨습니다.";
         websocket.send(str);
     }
+    
+    //도배방지 메시지 전송,도배유저 로그아웃처리
+    function kickUser(evt) {
+        websocket.send( username.split("@")[0] + ": 님은 도배방지를 위해 채팅방 연결이 해제되었습니다.");
+                var str = "<div class='col-6'>";
+                str += "<div class='alert alert-secondary' style='background-color: #de284a'>";
+                str += "<b>" + username.split("@")[0] + " :  님은 도배방지를 위해 채팅방 연결이 해제되었습니다" + "</b>";
+                str += "</div></div>";
+                $("#msgArea").append(str);
+                $("#msgArea").scrollTop($(document).height());
+
+                swal("도배경고", "도배방지를 위하여 회원님은 로그아웃 처리되었습니다.", "warning").then(() => {
+                    location.href="/logout";
+                });
+    }
 
     function onMessage(msg) {
         var data = msg.data;
-        var sessionId = null;
-        //데이터를 보낸 사람
-        var message = null;
         var arr = data.split(":");
 
         for(var i=0; i<arr.length; i++){
@@ -65,6 +87,7 @@ window.onload = function(){
             str += "</div></div>";
             $("#msgArea").append(str);
             $("#msgArea").scrollTop($(document).height());
+            count++;
         }
         else{
             var str = "<div class='col-6'>";

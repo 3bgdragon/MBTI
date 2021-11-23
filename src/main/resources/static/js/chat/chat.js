@@ -27,13 +27,13 @@ window.onload = function(){
 
     //채팅창에서 나갔을 때
     function onClose(evt) {
-        var str = username + ": 님이 방을 나가셨습니다.";
+        var str = username.split("@")[0] + ": 님이 방을 나가셨습니다.";
         websocket.send(str);
     }
 
     //채팅창에 들어왔을 때
     function onOpen(evt) {
-        var str = username + ": 님이 입장하셨습니다.";
+        var str = username.split("@")[0] + ": 님이 입장하셨습니다.";
         websocket.send(str);
     }
 
@@ -52,7 +52,7 @@ window.onload = function(){
 
         //현재 세션에 로그인 한 사람
         console.log("cur_session : " + cur_session);
-        sessionId = arr[0];
+        sessionId = arr[0].split("@")[0];
         message = arr[1];
 
         console.log("sessionID : " + sessionId);

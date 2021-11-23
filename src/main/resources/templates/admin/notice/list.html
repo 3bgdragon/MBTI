@@ -70,31 +70,32 @@
 
                 <tr th:each="notice : ${notices}">
                     <td th:text="${notices.getTotalElements() - (notices.number * notices.size + noticeStat.index)}"
-                        th:style="${notice.important == 'Y'} ? 'background-color: yellow' : 'background-color: none'"></td>
+                        th:style="${notice.important == 'Y'} ? 'background-color: #f8f8f8' : 'background-color: none'"></td>
 
                     <td th:if="${notice.important == 'Y'}" th:class="'ntc_'+${notice.noticeId}"
-                        th:style="${notice.important == 'Y'} ? 'background-color: yellow' : 'background-color: none'">
+                        th:style="${notice.important == 'Y'} ? 'background-color: #f8f8f8' : 'background-color: none'">
                         <strong th:if="${notice.important == 'Y'}" th:text="'공지'" ></strong>
                     </td>
 
                     <td th:if="${notice.important == 'N'}" th:text="' '"
-                        th:style="${notice.important == 'Y'} ? 'background-color: yellow' : 'background-color: none'"></td>
+                        th:style="${notice.important == 'Y'} ? 'background-color: #f8f8f8' : 'background-color: none'"></td>
 
                     <td th:class="'ntc_'+${notice.noticeId}"
-                        th:style="${notice.important == 'Y'} ? 'background-color: yellow' : 'background-color: none'"
+                        th:style="${notice.important == 'Y'} ? 'background-color: #f8f8f8' : 'background-color: none'"
                         th:onmouseover="ACTIONS.ONMOUSEOVER([[${notice.noticeId}]])"
                         th:onmouseout="ACTIONS.ONMOUSEOUT([[${notice.noticeId}]])">
-                        <a th:href="@{/admin/notice/detail/{id}(id=${notice.noticeId})}" th:text="${notice.title}"></a>
+                        <a th:href="@{/admin/notice/detail/{id}(id=${notice.noticeId})}" th:text="${notice.title}"
+                           th:style="${notice.important == 'Y'} ? 'color : #ff4e59; font-weight : bold' : 'color : #212121'"></a>
                     </td>
 
                     <td th:text="${notice.author}"
-                        th:style="${notice.important == 'Y'} ? 'background-color: yellow' : 'background-color: none'"></td>
+                        th:style="${notice.important == 'Y'} ? 'background-color: #f8f8f8' : 'background-color: none'"></td>
 
                     <td th:text="${notice.hit}"
-                        th:style="${notice.important == 'Y'} ? 'background-color: yellow' : 'background-color: none'"></td>
+                        th:style="${notice.important == 'Y'} ? 'background-color: #f8f8f8' : 'background-color: none'"></td>
 
                     <td th:text="${notice.date}"
-                        th:style="${notice.important == 'Y'} ? 'background-color: yellow' : 'background-color: none'"></td>
+                        th:style="${notice.important == 'Y'} ? 'background-color: #f8f8f8' : 'background-color: none'"></td>
                 </tr>
             </table>
 

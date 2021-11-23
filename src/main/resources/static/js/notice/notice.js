@@ -102,20 +102,117 @@ var ACTIONS = {
         }
     },
     COMMENT_MODIFY: function (item) {
-        var commentId = $(item).attr('id');
+        var commentId = $(item).attr('id').replaceAll("comment-modify_", '');
+
+        $("<textarea name='content' id='hiddenContent' rows='1' placeholder='댓글을 입력해주세요.'></textarea>").replaceAll($("#content_"+commentId));
+        $(`<a href='javascript:void(0)' id='hiddenModify_${commentId}' class='modify_btn' onclick='ACTIONS.COMMENT_MODIFY_BTN(this)'>변경</a>`).replaceAll($("#comment-modify_"+commentId));
+        $(`<a href='javascript:void(0)' id='hiddenCancel_${commentId}' class='delete_btn' onclick='window.location.reload()'>취소</a>`).replaceAll($("#comment-delete_"+commentId));
     },
-    COMMENT_DELETE: function (item) {
-        var commentId = $(item).attr('id').replace("comment-delete_", "");
+    COMMENT_MODIFY_BTN: function (item) {
+        var commentId = $(item).attr('id').replaceAll("hiddenModify_", '');
+        var content = $("#hiddenContent").val();
+
+        if (!content) {
+            swal("공지사항", "댓글을 입력해주세요.").then(() => {
+                $("#hiddenContent").focus();
+            });
+
+            return false;
+        }
+
+        var comment = {
+            id: commentId,
+            content: content
+        };
 
         $.ajax({
             type: "POST",
-            url: "/admin/notice/comment/delete/id="+commentId,
+            url: "/admin/notice/comment/modify",
             contentType: "application/json",
+            data: JSON.stringify(comment),
             success: function (res) {
-
+                window.location.reload();
             }
         })
+    },
+    COMMENT_MOUSEOVER: function (obj) {
+        var commentId = obj.id;
+       $("#comment_"+commentId).show();
+    },
+    COMMENT_COMMENT: function (item) {
+        var commentId = $(item).attr('id').replaceAll("comment-btn_", '');
 
+        var html = `
+            <div style="display: block;" id="hiddenCommentForm">
+                <input type="text" id="comment-comment_${commentId}" name="content" style="width: 50%" placeholder="댓글을 입력해주세요.">
+                <button type="button" onclick="ACTIONS.COMMENT_SAVE(${commentId})">입력</button>
+            </div>
+        `;
+
+        $("#btn_"+commentId).after(html);
+    },
+    COMMENT_SAVE: function (commentId) {
+        var content = $("#comment-comment_"+commentId).val();
+        if (!content) {
+            swal("공지사항", "댓글을 입력해주세요.", "warning").then(() => {
+                $("#comment-comment_"+commentId).focus();
+            });
+
+            return false;
+        }
+
+        var reply = { content: content };
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/notice/comment/reply/?id="+commentId,
+            contentType: "application/json",
+            data: JSON.stringify(reply),
+            success: function (res) {
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    },
+    COMMENT_MOUSEOUT: function (obj) {
+        var commentId = obj.id;
+        $("#comment_"+commentId).hide();
+    },
+    REPLY_MODIFY: function (item) {
+        var replyId = $(item).attr('id').replaceAll("relpy-modify_", '');
+
+        $("<textarea name='content' id='reply-hiddenContent' rows='1' placeholder='댓글을 입력해주세요.'></textarea>").replaceAll($("#reply-content_"+replyId));
+        $(`<a href='javascript:void(0)' id='reply-hiddenModify_${replyId}' class='modify_btn' onclick='ACTIONS.REPLY_MODIFY_BTN(this)'>변경</a>`).replaceAll($("#relpy-modify_"+replyId));
+        $(`<a href='javascript:void(0)' id='reply-hiddenCancel_${replyId}' class='delete_btn' onclick='window.location.reload()'>취소</a>`).replaceAll($("#reply-delete_"+replyId));
+    },
+    REPLY_MODIFY_BTN: function (item) {
+        var replyId = $(item).attr('id').replaceAll("reply-hiddenModify_", '');
+        var content = $("#reply-hiddenContent").val();
+
+        if (!content) {
+            swal("공지사항", "댓글을 입력해주세요.").then(() => {
+                $("#reply-hiddenContent").focus();
+            });
+
+            return false;
+        }
+
+        var reply = {
+            id : replyId,
+            content: content
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/notice/comment/reply/modify",
+            contentType: "application/json",
+            data: JSON.stringify(reply),
+            success: function (res) {
+                window.location.reload();
+            }
+        })
     }
 };
 

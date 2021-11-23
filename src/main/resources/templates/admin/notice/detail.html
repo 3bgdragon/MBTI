@@ -36,7 +36,6 @@
                         <a th:href="@{/admin/notice/list}" class="content_top_btn">목록</a>
                         <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/notice/modify/{id}(id=${notice.noticeId})}" class="content_top_btn" >수정</a>
                         <button type="button" class="choice_delete" th:onclick="ACTIONS.DELETE()">삭제</button>
-<!--                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/notice/delete/{id}(id=${notice.noticeId})}" class="content_top_btn" >삭제</a>-->
                     </div>
                 </div>
             </div>
@@ -67,15 +66,37 @@
 
                         <div style="height: 10px"></div>
                         <div id="notice-comment-fragment" th:each="comment : ${notice.childList}"
-                             style="display: block; padding: 10px 30px 0 30px; text-align: center">
-                                    <a th:href="@{#}" th:text="${comment.author}" class="float_left" style="padding-right: 10px"></a>
-                                    <span th:text="${comment.content}" style="display: inline-block; width: 900px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" ></span>
-                                    <span th:text="${#temporals.format(comment.date, 'yyyy.MM.dd')}" style="color: #979797"></span>
-                                <div class="float_right">
-                                    <button type="button" class="modify_btn" th:id="comment-modify_+${comment.id}" onclick="ACTIONS.COMMENT_MODOIFY(this)" th:if="${#authentication.name == comment.author}" >수정</button>
-                                    <a class="delete_btn" th:href="@{/admin/notice/comment/delete/{noticeId}/{id}(noticeId=${notice.noticeId}, id=${comment.id})}" th:if="${#authentication.name == comment.author}" >삭제</a>
-<!--                                    <button type="button" class="delete_btn" th:id="comment-delete_+${comment.id}" onclick="ACTIONS.COMMENT_DELETE(this)" th:if="${#authentication.name == comment.author}" >삭제</button>-->
+                             th:onmouseover="ACTIONS.COMMENT_MOUSEOVER([[${comment}]])" th:onmouseout="ACTIONS.COMMENT_MOUSEOUT([[${comment}]])"
+                             style="display: block; padding: 10px 30px 0 30px;">
+                            <a th:href="@{#}" th:id="author_+${comment.id}" th:text="${comment.author}" style="padding-right: 10px; width: 165px; text-align: left; float: left"></a>
+
+                            <span th:id="content_+${comment.id}" th:text="${comment.content}"
+                                  style="display: inline-block; width: 980px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; float: left; padding-right: 10px" ></span>
+
+                            <div th:id="comment_+${comment.id}" class="float_left" style="padding-right: 10px; display: none">
+                                <button type="button" class="modify_btn float_right" th:id="comment-btn_+${comment.id}" onclick="ACTIONS.COMMENT_COMMENT(this)">댓글</button>
+                            </div>
+
+                            <span th:text="${#temporals.format(comment.date, 'yyyy.MM.dd')}" style="color: #979797; display: inline-block; text-align: left"></span>
+
+                            <div style="float: right; width: 120px; display: inline-block" th:id="btn_+${comment.id}">
+                                <a href="javascript:void(0)" class="modify_btn" th:id="comment-modify_+${comment.id}" onclick="ACTIONS.COMMENT_MODIFY(this)" th:if="${#authentication.name == comment.author}" >수정</a>
+                                <a th:href="@{/admin/notice/comment/delete/{noticeId}/{id}(noticeId=${notice.noticeId}, id=${comment.id})}" class="delete_btn" th:id="comment-delete_+${comment.id}" th:if="${#authentication.name == comment.author}" >삭제</a>
+                            </div>
+
+                            <div style="padding-left: 100px" th:each="reply : ${comment.childList}">
+                                <a th:href="@{#}" th:text="${reply.author}" style="padding-right: 10px; width: 165px; text-align: left;float:left;"></a>
+
+                                <span th:text="${reply.content}" th:id="reply-content_+${reply.id}"
+                                      style="display: inline-block; width: 800px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; float: left; padding-right: 10px;"></span>
+
+                                <span th:text="${#temporals.format(reply.date, 'yyyy.MM.dd')}" style="color: #979797; display: inline-block; text-align: left"></span>
+
+                                <div>
+                                    <a href="javascript:void(0)" class="modify_btn" th:id="relpy-modify_+${reply.id}" onclick="ACTIONS.REPLY_MODIFY(this)" th:if="${#authentication.name == reply.author}">수정</a>
+                                    <a th:href="@{/admin/notice/comment/reply/delete/{id}(id=${reply.id})}" class="delete_btn" th:id="reply-delete_+${reply.id}" th:if="${#authentication.name == reply.author}">삭제</a>
                                 </div>
+                            </div>
                         </div>
 
                         <div style="margin-bottom: 35px"></div>

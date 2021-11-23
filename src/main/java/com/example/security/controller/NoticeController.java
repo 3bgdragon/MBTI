@@ -2,6 +2,8 @@ package com.example.security.controller;
 
 import com.example.security.domain.notice.comment.NoticeCommentService;
 import com.example.security.domain.notice.comment.dto.CommentRequest;
+import com.example.security.domain.notice.comment.reply.CommentReplyService;
+import com.example.security.domain.notice.comment.reply.dto.ReplyRequest;
 import com.example.security.domain.notice.dto.NoticeRequest;
 import com.example.security.domain.notice.dto.NoticeResponse;
 import com.example.security.domain.notice.NoticeService;
@@ -20,6 +22,7 @@ public class NoticeController {
 
     private final NoticeService noticeService;
     private final NoticeCommentService noticeCommentService;
+    private final CommentReplyService commentReplyService;
 
     @GetMapping("/list")
     public String gets(String filter, @RequestParam(defaultValue = "1") int page, Model model) {
@@ -102,6 +105,37 @@ public class NoticeController {
     @GetMapping("/comment/delete/{noticeId}/{id}")
     public RedirectView deleteComment(@PathVariable("noticeId") Long noticeId, @PathVariable("id") Long id) {
         noticeCommentService.deleteComment(id);
+
+        return new RedirectView("/admin/notice/detail/"+noticeId);
+    }
+
+    @PostMapping("/comment/modify")
+    public RedirectView modifyComment(@RequestBody CommentRequest request, Authentication authentication) {
+        String username = authentication.getName();
+        Long noticeId = noticeCommentService.modifyComment(request, username);
+
+        return new RedirectView("/admin/notice/detail/"+noticeId);
+    }
+
+    @PostMapping("/comment/reply")
+    public RedirectView reply(@RequestParam Long id, @RequestBody ReplyRequest request, Authentication authentication) {
+        String username = authentication.getName();
+        Long noticeId = commentReplyService.saveReply(request, id, username);
+
+        return new RedirectView("/admin/notice/detail/"+noticeId);
+    }
+
+    @GetMapping("/comment/reply/delete/{id}")
+    public RedirectView deleteReply(@PathVariable("id") Long replyId) {
+        Long noticeId = commentReplyService.deleteReply(replyId);
+
+        return new RedirectView("/admin/notice/detail/"+noticeId);
+    }
+
+    @PostMapping("/comment/reply/modify")
+    public RedirectView modifyReply(@RequestBody ReplyRequest request, Authentication authentication) {
+        String username = authentication.getName();
+        Long noticeId = commentReplyService.modifyReply(request, username);
 
         return new RedirectView("/admin/notice/detail/"+noticeId);
     }

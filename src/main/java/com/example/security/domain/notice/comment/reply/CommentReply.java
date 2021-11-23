@@ -1,8 +1,7 @@
-package com.example.security.domain.notice.comment;
+package com.example.security.domain.notice.comment.reply;
 
 import com.example.security.core.BaseTimeEntity;
-import com.example.security.domain.notice.Notice;
-import com.example.security.domain.notice.comment.reply.CommentReply;
+import com.example.security.domain.notice.comment.NoticeComment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,18 +11,16 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-
 
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "NOTICE_COMMENT")
-@DynamicUpdate
+@Table(name = "COMMENT_REPLY")
 @DynamicInsert
-public class NoticeComment extends BaseTimeEntity {
+@DynamicUpdate
+public class CommentReply extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,17 +29,14 @@ public class NoticeComment extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PARENT_ID")
-    private Notice notice;
-
-    @Column(name = "CONTENT", columnDefinition = "TEXT", nullable = false)
-    private String content;
+    private NoticeComment noticeComment;
 
     @Column(name = "AUTHOR", length = 100, nullable = false)
     private String author;
 
+    @Column(name = "CONTENT", columnDefinition = "TEXT", nullable = false)
+    private String content;
+
     @Column(name = "DATE", length = 20, nullable = false)
     private LocalDateTime date;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "noticeComment", cascade = CascadeType.ALL)
-    List<CommentReply> childList;
 }

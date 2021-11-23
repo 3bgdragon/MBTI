@@ -42,6 +42,20 @@ public class NoticeCommentService extends BaseService<NoticeComment, Long> {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(qNoticeComment.id.eq(id));
         NoticeComment comment = select().from(qNoticeComment).where(builder).fetchOne();
+
         delete(comment);
+    }
+
+    @Transactional
+    public Long modifyComment(CommentRequest request, String username) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qNoticeComment.id.eq(request.getId()));
+        NoticeComment comment = findById(request.getId()).get();
+
+        request.setAuthor(username);
+        request.setNotice(comment.getNotice());
+        request.setDate(LocalDateTime.now());
+
+        return save(request.toEntity()).getNotice().getNoticeId();
     }
 }

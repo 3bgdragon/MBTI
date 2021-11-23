@@ -81,9 +81,9 @@ public class UserService extends BaseService<UserInfo, Long> implements UserDeta
 
     public String getUsermbti() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<UserInfo> userInfo = userRepository.findByEmail(authentication.getName());
+        UserInfo userInfo = userRepository.findByEmail(authentication.getName()).get();
 
-        return String.valueOf(userInfo.get().getMbti());
+        return userInfo.getMbti();
     }
 
     public Optional<UserInfo> findUserByEmail(String email) {

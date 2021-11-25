@@ -30,6 +30,7 @@ public class Scrap {
     @JoinColumn(name = "PARENT_ID")
     private Board board;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CODE")
     private UserInfo userInfo;
 }

@@ -62,7 +62,7 @@
                     <th>작성일</th>
                 </tr>
 
-                <tr th:if="${contentSize == 0}">
+                <tr th:if="${notices.getContent().size() == 0}">
                     <td colspan="8" class="none_data_table01">
                         조회된 공지사항이 없습니다.
                     </td>

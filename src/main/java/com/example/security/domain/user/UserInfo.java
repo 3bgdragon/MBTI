@@ -2,6 +2,8 @@ package com.example.security.domain.user;
 
 import com.example.security.core.BaseTimeEntity;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +20,8 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @Table(name = "USERINFO")
+@DynamicUpdate
+@DynamicInsert
 public class UserInfo extends BaseTimeEntity implements UserDetails {
 
     @Id

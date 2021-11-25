@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layout/common}">
+
+<head>
+    <title>대시보드</title>
+
+    <!-- Page css -->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" href="/css/board.css">
+    </th:block>
+
+    <!-- Page js -->
+    <th:block layout:fragment="script">
+    </th:block>
+
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="float title_float">
+            <div class="float_left">
+                <h1 th:text="|${mbti} 게시판 |"></h1>
+            </div>
+        </div>
+
+
+        <div th:fragment="mbti-board-fragment">
+            <div class="mbti-free" style="padding-bottom: 20px">
+                <div class="float title_float">
+                    <div class="float_left">
+                        <h3><a href="#">자유 &gt;</a></h3>
+                    </div>
+                </div>
+                <table class="mbti-free-table">
+                    <colspan>
+                        <col width="5%">
+                        <col width="15%">
+                        <col width="50%">
+                        <col width="10%">
+                        <col width="15%">
+                    </colspan>
+                    <tr>
+                        <th>번호</th>
+                        <th>작성자</th>
+                        <th>제목</th>
+                        <th>조회/좋아요/스크랩</th>
+                        <th>작성일</th>
+                    </tr>
+
+                    <tr th:if="${freeSize == 0}">
+                        <td colspan="8" class="none_data_table02">
+                            조회된 자유 게시판 목록이 없습니다.
+                        </td>
+                    </tr>
+
+                    <tr th:each="free : ${freeList}">
+                        <td th:text="${freeStat.index+1}"></td>
+
+                        <td th:text="${free.user.email}"></td>
+
+                        <td th:text="${free.title}">
+                            <a href="#"  th:text="${free.title}"></a>
+                        </td>
+
+                        <td th:text="|${free.hit} / ${free.likeList.size()} / ${free.scrapList.size()} |"></td>
+
+                        <td th:text="${#temporals.format(free.date, 'yyyy.MM.dd')}"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="height: 20px;"></div>
+
+            <div class="mbti-qna" style="padding-bottom: 20px">
+                <div class="float title_float">
+                    <div class="float_left">
+                        <h3><a href="#">Q&amp;A &gt;</a></h3>
+                    </div>
+                </div>
+                <table class="mbti-qna-table">
+                    <colspan>
+                        <col width="5%">
+                        <col width="15%">
+                        <col width="50%">
+                        <col width="10%">
+                        <col width="15%">
+                    </colspan>
+                    <tr>
+                        <th>번호</th>
+                        <th>작성자</th>
+                        <th>제목</th>
+                        <th>조회/좋아요/스크랩</th>
+                        <th>작성일</th>
+                    </tr>
+
+                    <tr th:if="${qnaSize == 0}">
+                        <td colspan="8" class="none_data_table02">
+                            조회된 Q&A 게시판 목록이 없습니다.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="height: 20px;"></div>
+
+            <div class="mbti-community" style="padding-bottom: 20px">
+                <div class="float title_float">
+                    <div class="float_left">
+                        <h3><a href="#">커뮤니티 &gt;</a></h3>
+                    </div>
+                </div>
+                <table class="mbti-community-table">
+                    <colspan>
+                        <col width="5%">
+                        <col width="15%">
+                        <col width="50%">
+                        <col width="10%">
+                        <col width="15%">
+                    </colspan>
+                    <tr>
+                        <th>번호</th>
+                        <th>작성자</th>
+                        <th>제목</th>
+                        <th>조회/좋아요/스크랩</th>
+                        <th>작성일</th>
+                    </tr>
+
+                    <tr th:if="${communitySize == 0}">
+                        <td colspan="8" class="none_data_table02">
+                            조회된 커뮤니티 게시판 목록이 없습니다.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.example.security.domain.board;
 import com.example.security.core.BaseTimeEntity;
 import com.example.security.domain.board.like.Like;
 import com.example.security.domain.board.scrap.Scrap;
+import com.example.security.domain.user.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,8 +36,12 @@ public class Board extends BaseTimeEntity {
     @Column(name = "GROUP", length = 20, nullable = false)
     private String group;
 
-    @Column(name = "AUTHOR", length = 100, nullable = false)
-    private String author;
+    @Column(name = "ALL", length = 1, nullable = false)
+    private String all;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CODE")
+    private UserInfo userInfo;
 
     @Column(name = "TITLE", length = 255, nullable = false)
     private String title;

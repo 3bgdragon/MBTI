@@ -1,6 +1,7 @@
 package com.example.security.domain.board.dto;
 
 import com.example.security.domain.board.Board;
+import com.example.security.domain.user.UserInfo;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,10 @@ public class BoardRequest {
     private String mbti;
 
     private String group;
+
+    private String all;
+
+    private UserInfo userInfo;
 
     private String title;
 
@@ -29,6 +34,8 @@ public class BoardRequest {
                 .id(this.id)
                 .mbti(this.mbti)
                 .group(this.group)
+                .all(this.all)
+                .userInfo(this.userInfo)
                 .title(this.title)
                 .content(this.content)
                 .date(this.date)
